@@ -6,7 +6,7 @@
 public class WallMaterial : MonoBehaviour
 {
     [Header("Material of walls")]
-    [SerializeField] private string name;
+    [SerializeField] private new string name;
     [SerializeField] private float absorptionCoefficient;
 
     public WallMaterial(string name, float absorptionCoefficient)

@@ -5,7 +5,7 @@ public class Speaker : MonoBehaviour
 {
 
     [Header("Identification of speaker")]
-    [SerializeField] private string name;
+    [SerializeField] private new string name;
     [SerializeField] private string model;
 
     public string Name => name;
