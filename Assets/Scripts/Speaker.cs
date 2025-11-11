@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using System;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Speaker : MonoBehaviour
@@ -14,7 +15,7 @@ public class Speaker : MonoBehaviour
     [Header("Physical parameters")]
     [SerializeField] private float power;
     [SerializeField] private float soundAbsorptionCoefficient;
-
+    [SerializeField] private Directivity directivity = Directivity.Monopole;
     // TODO: Add more parameters
     
     public float Power
