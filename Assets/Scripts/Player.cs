@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 #nullable enable
 
@@ -20,42 +21,98 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1) == true)
+        //if (Action.GetKeyDown(KeyCode.Mouse1) == true)
+        //{
+        //    RaycastHit hit;
+        //    if (CameraToMouseRay(out hit))
+        //    {
+        //        GameObject targetHit = hit.transform.gameObject;
+
+        //        if (targetHit.tag != "Movable") { return; }
+
+        //        movableObj = targetHit.GetComponent<MovableObject>();
+        //        movableObj.SetSelected();
+        //    }
+        //}
+        //else if (Input.GetMouseButtonUp(1) == true && movableObj != null)
+        //{
+        //    movableObj.SetSelected();
+        //    movableObj = null;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Mouse0) == true)
+        //{
+        //    RaycastHit hit;
+        //    if (CameraToMouseRay(out hit))
+        //    {
+        //        GameObject targetHit = hit.transform.gameObject;
+        //        Vector3 hitPos = hit.point;
+
+        //        if (targetHit != null) {
+        //            hitPos = hitPos + Vector3.up * obj.transform.localScale.y / 2;
+        //            Instantiate(obj, hitPos, Quaternion.identity);
+
+        //        }
+
+        //        movableObj = targetHit.GetComponent<MovableObject>();
+        //        movableObj.SetSelected();
+        //    }
+        //}
+    }
+
+    public void OnDrag(InputValue value)
+    {
+        Debug.LogError("eoiufhwerpioghwersioughrefwafiopuhedrs iougersthpiogsuerhvioserubgseoirhg");
+        Debug.LogError("eoiufhwerpioghwersioughrefwafiopuhedrs iougersthpiogsuerhvioserubgseoirhg");
+        Debug.LogError("eoiufhwerpioghwersioughrefwafiopuhedrs iougersthpiogsuerhvioserubgseoirhg");
+        if (value.isPressed)
         {
-            RaycastHit hit;
-            if (CameraToMouseRay(out hit))
-            {
-                GameObject targetHit = hit.transform.gameObject;
+            Debug.LogError("weszlem");
+            Debug.LogError("weszlem");
+            Debug.LogError("weszlem");
+            Debug.LogError("weszlem");
 
-                if (targetHit.tag != "Movable") { return; }
-
-                movableObj = targetHit.GetComponent<MovableObject>();
-                movableObj.SetSelected();
-            }
+            Drag();
         }
-        else if (Input.GetMouseButtonUp(1) == true && movableObj != null)
+            
+    }
+
+    private void Drag()
+    {   
+        RaycastHit hit;
+        if (CameraToMouseRay(out hit))
         {
+            GameObject targetHit = hit.transform.gameObject;
+
+            if (targetHit.tag != "Movable") { return; }
+
+            movableObj = targetHit.GetComponent<MovableObject>();
             movableObj.SetSelected();
-            movableObj = null;
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) == true)
-        {
-            RaycastHit hit;
-            if (CameraToMouseRay(out hit))
-            {
-                GameObject targetHit = hit.transform.gameObject;
-                Vector3 hitPos = hit.point;
 
-                if (targetHit != null) {
-                    hitPos = hitPos + Vector3.up * obj.transform.localScale.y / 2;
-                    Instantiate(obj, hitPos, Quaternion.identity);
+        //else if (Input.GetMouseButtonUp(1) == true && movableObj != null)
+        //{
+        //    movableObj.SetSelected();
+        //    movableObj = null;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Mouse0) == true)
+        //{
+        //    RaycastHit hit;
+        //    if (CameraToMouseRay(out hit))
+        //    {
+        //        GameObject targetHit = hit.transform.gameObject;
+        //        Vector3 hitPos = hit.point;
 
-                }
+        //        if (targetHit != null)
+        //        {
+        //            hitPos = hitPos + Vector3.up * obj.transform.localScale.y / 2;
+        //            Instantiate(obj, hitPos, Quaternion.identity);
 
-                movableObj = targetHit.GetComponent<MovableObject>();
-                movableObj.SetSelected();
-            }
-        }
+        //        }
+
+        //        movableObj = targetHit.GetComponent<MovableObject>();
+        //        movableObj.SetSelected();
+        //    }
+        //}
     }
 
     void FixedUpdate()
@@ -69,7 +126,8 @@ public class Player : MonoBehaviour
     }
 
     public static bool CameraToMouseRay(out RaycastHit hit) {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = cam.ScreenPointToRay(mousePos);
         return Physics.Raycast(ray, out hit);
     }
 }
