@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-internal class PlayerInstanceManager
+public class PlayerInstanceManager
 {
     private static Player player;
 
@@ -18,5 +14,10 @@ internal class PlayerInstanceManager
             else
                 throw new NullReferenceException("Player cannot be null");
         }
+    }
+
+    void Update()
+    {
+
     }
 }
