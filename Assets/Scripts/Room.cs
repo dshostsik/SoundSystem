@@ -10,7 +10,7 @@ public class Room : MonoBehaviour
     [SerializeField] private float width;
     [SerializeField] private float depth;
     [SerializeField] private float height;
-    [SerializeField] private WallMaterial wallMaterial;
+    [SerializeField] private WallMaterial[] wallMaterials;
     
     public float Width
     {

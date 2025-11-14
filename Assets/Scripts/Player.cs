@@ -11,12 +11,12 @@ public class Player : MonoBehaviour
     private static Camera cam;
     private GameObject obj;
     private MovableObject movableObj = null;
+    public Vector3 Position => transform.position;
 
     void Start()
     {
         amoutOfSpeakers = 5;
         PlayerInstanceManager.Player = this;
-        obj = Resources.Load<GameObject>("Sphere");
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
@@ -35,14 +35,6 @@ public class Player : MonoBehaviour
             Release();
         }
             
-    }
-
-    public void OnRightDrag(InputValue value)
-    {
-        if (value.isPressed)
-        {
-            RightDrag();
-        }
     }
 
     private void Release()
@@ -89,26 +81,6 @@ public class Player : MonoBehaviour
         //}
     }
 
-    private void RightDrag()
-    {
-        RaycastHit hit;
-        if (CameraToMouseRay(out hit))
-        {
-            GameObject targetHit = hit.transform.gameObject;
-            Vector3 hitPos = hit.point;
-
-            if (targetHit != null)
-            {
-                hitPos = hitPos + Vector3.up * obj.transform.localScale.y / 2;
-                Instantiate(obj, hitPos, Quaternion.identity);
-
-
-            }
-
-            movableObj = targetHit.GetComponent<MovableObject>();
-            movableObj.SetSelected();
-        }
-    }
 
     void FixedUpdate()
     {
