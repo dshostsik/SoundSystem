@@ -204,7 +204,7 @@
                     "name": "",
                     "id": "ee2fc4ef-a5c2-4703-b23e-b32314ef14e6",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Drag",

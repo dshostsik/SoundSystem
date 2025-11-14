@@ -69,20 +69,20 @@ public class Room : MonoBehaviour
         // 🧱 Floor
         CreateWall("Floor", new Vector3(0, 0, 0), new Vector3(w, 0.1f, d), Quaternion.identity);
 
-        // 🧱 Ceiling
-        CreateWall("Ceiling", new Vector3(0, h, 0), new Vector3(w, 0.1f, d), Quaternion.identity);
+        //// 🧱 Ceiling
+        //CreateWall("Ceiling", new Vector3(0, h, 0), new Vector3(w, 0.1f, d), Quaternion.identity);
 
-        // 🧱 Back Wall
-        CreateWall("BackWall", new Vector3(0, h / 2f, -d / 2f), new Vector3(w, h, 0.1f), Quaternion.identity);
+        //// 🧱 Back Wall
+        //CreateWall("BackWall", new Vector3(0, h / 2f, -d / 2f), new Vector3(w, h, 0.1f), Quaternion.identity);
 
-        // 🧱 Front Wall
-        CreateWall("FrontWall", new Vector3(0, h / 2f, d / 2f), new Vector3(w, h, 0.1f), Quaternion.identity);
+        //// 🧱 Front Wall
+        //CreateWall("FrontWall", new Vector3(0, h / 2f, d / 2f), new Vector3(w, h, 0.1f), Quaternion.identity);
 
-        // 🧱 Left Wall
-        CreateWall("LeftWall", new Vector3(-w / 2f, h / 2f, 0), new Vector3(0.1f, h, d), Quaternion.identity);
+        //// 🧱 Left Wall
+        //CreateWall("LeftWall", new Vector3(-w / 2f, h / 2f, 0), new Vector3(0.1f, h, d), Quaternion.identity);
 
-        // 🧱 Right Wall
-        CreateWall("RightWall", new Vector3(w / 2f, h / 2f, 0), new Vector3(0.1f, h, d), Quaternion.identity);
+        //// 🧱 Right Wall
+        //CreateWall("RightWall", new Vector3(w / 2f, h / 2f, 0), new Vector3(0.1f, h, d), Quaternion.identity);
     }
 
     void Update()

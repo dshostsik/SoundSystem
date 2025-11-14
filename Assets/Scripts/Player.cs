@@ -16,64 +16,42 @@ public class Player : MonoBehaviour
     {
         amoutOfSpeakers = 5;
         PlayerInstanceManager.Player = this;
+        obj = Resources.Load<GameObject>("Sphere");
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
     void Update()
     {
-        //if (Action.GetKeyDown(KeyCode.Mouse1) == true)
-        //{
-        //    RaycastHit hit;
-        //    if (CameraToMouseRay(out hit))
-        //    {
-        //        GameObject targetHit = hit.transform.gameObject;
 
-        //        if (targetHit.tag != "Movable") { return; }
-
-        //        movableObj = targetHit.GetComponent<MovableObject>();
-        //        movableObj.SetSelected();
-        //    }
-        //}
-        //else if (Input.GetMouseButtonUp(1) == true && movableObj != null)
-        //{
-        //    movableObj.SetSelected();
-        //    movableObj = null;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Mouse0) == true)
-        //{
-        //    RaycastHit hit;
-        //    if (CameraToMouseRay(out hit))
-        //    {
-        //        GameObject targetHit = hit.transform.gameObject;
-        //        Vector3 hitPos = hit.point;
-
-        //        if (targetHit != null) {
-        //            hitPos = hitPos + Vector3.up * obj.transform.localScale.y / 2;
-        //            Instantiate(obj, hitPos, Quaternion.identity);
-
-        //        }
-
-        //        movableObj = targetHit.GetComponent<MovableObject>();
-        //        movableObj.SetSelected();
-        //    }
-        //}
     }
 
     public void OnDrag(InputValue value)
     {
-        Debug.LogError("eoiufhwerpioghwersioughrefwafiopuhedrs iougersthpiogsuerhvioserubgseoirhg");
-        Debug.LogError("eoiufhwerpioghwersioughrefwafiopuhedrs iougersthpiogsuerhvioserubgseoirhg");
-        Debug.LogError("eoiufhwerpioghwersioughrefwafiopuhedrs iougersthpiogsuerhvioserubgseoirhg");
+
         if (value.isPressed)
         {
-            Debug.LogError("weszlem");
-            Debug.LogError("weszlem");
-            Debug.LogError("weszlem");
-            Debug.LogError("weszlem");
-
             Drag();
+        } else {
+            Release();
         }
             
+    }
+
+    public void OnRightDrag(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            RightDrag();
+        }
+    }
+
+    private void Release()
+    {
+        if (movableObj != null)
+        {
+            movableObj.SetSelected();
+            movableObj = null;
+        }
     }
 
     private void Drag()
@@ -88,12 +66,8 @@ public class Player : MonoBehaviour
             movableObj = targetHit.GetComponent<MovableObject>();
             movableObj.SetSelected();
         }
-
-        //else if (Input.GetMouseButtonUp(1) == true && movableObj != null)
-        //{
-        //    movableObj.SetSelected();
-        //    movableObj = null;
-        //}
+        
+        
         //else if (Input.GetKeyDown(KeyCode.Mouse0) == true)
         //{
         //    RaycastHit hit;
@@ -115,8 +89,30 @@ public class Player : MonoBehaviour
         //}
     }
 
+    private void RightDrag()
+    {
+        RaycastHit hit;
+        if (CameraToMouseRay(out hit))
+        {
+            GameObject targetHit = hit.transform.gameObject;
+            Vector3 hitPos = hit.point;
+
+            if (targetHit != null)
+            {
+                hitPos = hitPos + Vector3.up * obj.transform.localScale.y / 2;
+                Instantiate(obj, hitPos, Quaternion.identity);
+
+
+            }
+
+            movableObj = targetHit.GetComponent<MovableObject>();
+            movableObj.SetSelected();
+        }
+    }
+
     void FixedUpdate()
     {
+
     }
 
     void ChangeAmountOfSpeakers(int newAmount) {
