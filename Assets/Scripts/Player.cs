@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
     private int amoutOfSpeakers;
     public event Action<int>? AmountOfSpeakersChanged;
     private static Camera cam;
-    private GameObject obj;
+    //private GameObject obj;
     private MovableObject movableObj = null;
     public Vector3 Position => transform.position;
+    public Vector3 Forward => transform.forward;
+
 
     void Start()
     {
@@ -58,27 +60,6 @@ public class Player : MonoBehaviour
             movableObj = targetHit.GetComponent<MovableObject>();
             movableObj.SetSelected();
         }
-        
-        
-        //else if (Input.GetKeyDown(KeyCode.Mouse0) == true)
-        //{
-        //    RaycastHit hit;
-        //    if (CameraToMouseRay(out hit))
-        //    {
-        //        GameObject targetHit = hit.transform.gameObject;
-        //        Vector3 hitPos = hit.point;
-
-        //        if (targetHit != null)
-        //        {
-        //            hitPos = hitPos + Vector3.up * obj.transform.localScale.y / 2;
-        //            Instantiate(obj, hitPos, Quaternion.identity);
-
-        //        }
-
-        //        movableObj = targetHit.GetComponent<MovableObject>();
-        //        movableObj.SetSelected();
-        //    }
-        //}
     }
 
 

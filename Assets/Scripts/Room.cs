@@ -6,11 +6,11 @@ using UnityEngine;
 /// </summary>
 public class Room : MonoBehaviour
 {
-    [Header("Parameters of room")]
-    [SerializeField] private float width;
-    [SerializeField] private float depth;
-    [SerializeField] private float height;
-    [SerializeField] private WallMaterial[] wallMaterials;
+    [Header("Room geometry (meters)")]
+    public float width = 6.0f;
+    public float length = 4.0f;
+    public float height = 2.5f;
+    public RoomSurface[] surfaces = new RoomSurface[6];
     
     public float Width
     {
@@ -19,11 +19,11 @@ public class Room : MonoBehaviour
         set => width = value >= 0 ?  value : -value;
     }
     
-    public float Depth
+    public float Lenght
     {
-        get => depth;
+        get => length;
         // Values less than 0 will be negated. In case it is just a typo.
-        set => depth = value >= 0 ?  value : -value;
+        set => length = value >= 0 ?  value : -value;
     }
     
     public float Height
@@ -32,7 +32,9 @@ public class Room : MonoBehaviour
         // Values less than 0 will be negated. In case it is just a typo.
         set => height = value >= 0 ?  value : -value;
     }
-    
+    public float Volume => Mathf.Max(0.0001f, width * length * height);
+
+
     private void Start()
     {
         GenerateRoom();
@@ -63,11 +65,11 @@ public class Room : MonoBehaviour
         }
 
         float w = Width;
-        float d = Depth;
+        float l = Lenght;
         float h = Height;
 
         // 🧱 Floor
-        CreateWall("Floor", new Vector3(0, 0, 0), new Vector3(w, 0.1f, d), Quaternion.identity);
+        CreateWall("Floor", new Vector3(0, 0, 0), new Vector3(w, 0.1f, l), Quaternion.identity);
 
         //// 🧱 Ceiling
         //CreateWall("Ceiling", new Vector3(0, h, 0), new Vector3(w, 0.1f, d), Quaternion.identity);
