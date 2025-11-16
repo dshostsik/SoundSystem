@@ -118,6 +118,15 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraRotateConfirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""b722c806-e189-4cc2-95fc-23e564b58614"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -307,6 +316,28 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
                     ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2452fae-536a-4160-8caf-dbccd2d410cd"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraRotateConfirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02e52a4a-8ddd-47bc-85ec-aef0e97343e5"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraRotateConfirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -318,6 +349,7 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
         m_Moving_Move = m_Moving.FindAction("Move", throwIfNotFound: true);
         m_Moving_Look = m_Moving.FindAction("Look", throwIfNotFound: true);
         m_Moving_Drag = m_Moving.FindAction("Drag", throwIfNotFound: true);
+        m_Moving_CameraRotateConfirm = m_Moving.FindAction("CameraRotateConfirm", throwIfNotFound: true);
     }
 
     ~@MovesAndLooks()
@@ -401,6 +433,7 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
     private readonly InputAction m_Moving_Move;
     private readonly InputAction m_Moving_Look;
     private readonly InputAction m_Moving_Drag;
+    private readonly InputAction m_Moving_CameraRotateConfirm;
     /// <summary>
     /// Provides access to input actions defined in input action map "Moving".
     /// </summary>
@@ -424,6 +457,10 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Moving/Drag".
         /// </summary>
         public InputAction @Drag => m_Wrapper.m_Moving_Drag;
+        /// <summary>
+        /// Provides access to the underlying input action "Moving/CameraRotateConfirm".
+        /// </summary>
+        public InputAction @CameraRotateConfirm => m_Wrapper.m_Moving_CameraRotateConfirm;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -459,6 +496,9 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
             @Drag.started += instance.OnDrag;
             @Drag.performed += instance.OnDrag;
             @Drag.canceled += instance.OnDrag;
+            @CameraRotateConfirm.started += instance.OnCameraRotateConfirm;
+            @CameraRotateConfirm.performed += instance.OnCameraRotateConfirm;
+            @CameraRotateConfirm.canceled += instance.OnCameraRotateConfirm;
         }
 
         /// <summary>
@@ -479,6 +519,9 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
             @Drag.started -= instance.OnDrag;
             @Drag.performed -= instance.OnDrag;
             @Drag.canceled -= instance.OnDrag;
+            @CameraRotateConfirm.started -= instance.OnCameraRotateConfirm;
+            @CameraRotateConfirm.performed -= instance.OnCameraRotateConfirm;
+            @CameraRotateConfirm.canceled -= instance.OnCameraRotateConfirm;
         }
 
         /// <summary>
@@ -540,5 +583,12 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDrag(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CameraRotateConfirm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCameraRotateConfirm(InputAction.CallbackContext context);
     }
 }
