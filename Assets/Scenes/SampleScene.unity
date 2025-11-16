@@ -1435,7 +1435,7 @@ GameObject:
   - component: {fileID: 1750031253}
   - component: {fileID: 1750031252}
   - component: {fileID: 1750031251}
-  - component: {fileID: 1750031250}
+  - component: {fileID: 1750031256}
   - component: {fileID: 1750031255}
   m_Layer: 0
   m_Name: Cube
@@ -1444,22 +1444,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1750031250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750031249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d188ce2c68cdfa44b2e3a7cc75b31a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Speaker
-  channelName: 
-  baseLevel: 1
-  soundPressureLevel: 0
-  testSignal: []
 --- !u!65 &1750031251
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1564,6 +1548,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c258afbc2333dd845ae6dcc5d87137a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovableObject
+--- !u!114 &1750031256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750031249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c61c65a4082954ab7536ed15dd9d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Speaker
+  channelName: 
+  baseLevel: 1
+  soundPressureLevel: 0
+  testSignal: []
 --- !u!1 &1872577576
 GameObject:
   m_ObjectHideFlags: 0
