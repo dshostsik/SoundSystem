@@ -1,7 +1,9 @@
+using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// UI Controller — pe³ni rolê ³¹cznika miêdzy interfejsem u¿ytkownika
@@ -16,6 +18,8 @@ using UnityEngine.UI;
 /// </summary>
 public class AcousticUIController : MonoBehaviour
 {
+    private UIDocument doc;
+    
     [Header("References")]
     public RoomAcousticsManager acoustics;
     public SurroundSystemFactory systemFactory;
@@ -23,6 +27,8 @@ public class AcousticUIController : MonoBehaviour
     [Header("UI Elements – system selection")]
     public TMP_Dropdown systemDropdown;
 
+    public Button startButton;
+    
     [Header("UI Elements – speaker controls")]
     public TMP_Dropdown speakerDropdown;
     public Slider speakerLevelSlider;
@@ -41,19 +47,30 @@ public class AcousticUIController : MonoBehaviour
 
     private Speaker[] currentSpeakers;
 
+    void Awake()
+    {
+        doc = GetComponent<UIDocument>();
+
+        startButton = doc.rootVisualElement.Q<Button>("start_simulation");
+        speakerLevelSlider = doc.rootVisualElement.Q<Slider>("sound_level");
+        //slider
+        //startButton.RegisterCallback<ClickEvent>(RunSimulation);
+        speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
+    }
+
     private void Start()
     {
-        systemDropdown.onValueChanged.AddListener(OnSystemSelected);
-        speakerDropdown.onValueChanged.AddListener(OnSpeakerSelected);
+        //systemDropdown.onValueChanged.AddListener(OnSystemSelected);
+        //speakerDropdown.onValueChanged.AddListener(OnSpeakerSelected);
 
-        speakerLevelSlider.onValueChanged.AddListener(OnSpeakerLevelChanged);
-        speakerRotationSlider.onValueChanged.AddListener(OnSpeakerRotationChanged);
+        // speakerLevelSlider.onValueChanged.AddListener(OnSpeakerLevelChanged);
+        // speakerRotationSlider.onValueChanged.AddListener(OnSpeakerRotationChanged);
+        //
+        // listenerX.onValueChanged.AddListener(OnListenerMove);
+        // listenerZ.onValueChanged.AddListener(OnListenerMove);
 
-        listenerX.onValueChanged.AddListener(OnListenerMove);
-        listenerZ.onValueChanged.AddListener(OnListenerMove);
-
-        surfaceDropdown.onValueChanged.AddListener(OnSurfaceSelected);
-        materialDropdown.onValueChanged.AddListener(OnMaterialSelected);
+        //surfaceDropdown.onValueChanged.AddListener(OnSurfaceSelected);
+        //materialDropdown.onValueChanged.AddListener(OnMaterialSelected);
 
         RefreshInfo();
     }
@@ -102,12 +119,12 @@ public class AcousticUIController : MonoBehaviour
         speakerRotationSlider.value = sp.transform.eulerAngles.y;
     }
 
-    private void OnSpeakerLevelChanged(float newLevel)
+    private void OnSpeakerLevelChanged(ChangeEvent<float> newLevel)
     {
         var sp = GetSelectedSpeaker();
         if (sp == null) return;
 
-        sp.SetBaseLevel(newLevel);
+        sp.SetBaseLevel(newLevel.newValue);
         RefreshInfo();
     }
 
@@ -180,5 +197,10 @@ public class AcousticUIController : MonoBehaviour
         }
 
         infoText.text = msg;
+    }
+
+    public void OnDisable()
+    {
+        //startButton.UnregisterCallback<ClickEvent>(RunSimulation);
     }
 }

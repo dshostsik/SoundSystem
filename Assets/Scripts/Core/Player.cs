@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public event Action<int>? AmountOfSpeakersChanged;
     private static Camera cam;
     //private GameObject obj;
-    private MovableObject movableObj = null;
+    private MovableObject? movableObj;
     public Vector3 Position => transform.position;
     public Vector3 Forward => transform.forward;
 
@@ -41,21 +41,18 @@ public class Player : MonoBehaviour
 
     private void Release()
     {
-        if (movableObj != null)
-        {
-            movableObj.SetSelected();
-            movableObj = null;
-        }
+        if (movableObj == null) return;
+        movableObj.SetSelected();
+        movableObj = null;
     }
 
     private void Drag()
     {   
-        RaycastHit hit;
-        if (CameraToMouseRay(out hit))
+        if (CameraToMouseRay(out RaycastHit hit))
         {
             GameObject targetHit = hit.transform.gameObject;
 
-            if (targetHit.tag != "Movable") { return; }
+            if (!targetHit.CompareTag("Movable")) { return; }
 
             movableObj = targetHit.GetComponent<MovableObject>();
             movableObj.SetSelected();
