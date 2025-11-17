@@ -19,6 +19,7 @@ public class SurroundSystemFactory : MonoBehaviour
     [Header("Available system configs")]
     public SurroundSystemConfig config51;
     public SurroundSystemConfig config71;
+    public SurroundSystemConfig config91;
 
     private readonly List<Speaker> createdSpeakers = new List<Speaker>();
 
@@ -71,6 +72,12 @@ public class SurroundSystemFactory : MonoBehaviour
     public void Build71()
     {
         CreateSystem(config71);
+        RoomAcousticsManager.Instance.RunSimulation();
+    }
+
+    public void Build91()
+    {
+        CreateSystem(config91);
         RoomAcousticsManager.Instance.RunSimulation();
     }
 }
