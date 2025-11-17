@@ -202,5 +202,6 @@ public class AcousticUIController : MonoBehaviour
     public void OnDisable()
     {
         //startButton.UnregisterCallback<ClickEvent>(RunSimulation);
+        speakerLevelSlider.UnregisterValueChangedCallback(OnSpeakerLevelChanged);
     }
 }
