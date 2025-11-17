@@ -214,7 +214,6 @@ namespace UnityEngine.Rendering
 
         private void OnCameraRotateConfirm(InputValue value)
         {
-            Debug.LogWarning("MMB clicked");
             moveConfirmed = value.isPressed;
         }
     }
