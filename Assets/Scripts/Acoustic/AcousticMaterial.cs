@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.UI;
 
 /// <summary>
 /// Represents material of surface
 /// </summary>
-public class AcousticMaterial : MonoBehaviour
+[CreateAssetMenu(fileName = "AcousticMaterial", menuName = "Acoustics/AcousticMaterial", order = 10)]
+
+public class AcousticMaterial : ScriptableObject
 {
     [Header("Material of walls")]
     [SerializeField] private string materialName;
