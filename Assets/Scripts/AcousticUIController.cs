@@ -1,10 +1,9 @@
+using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 //using UnityEngine.UI;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
-using Slider = UnityEngine.UIElements.Slider;
 
 /// <summary>
 /// UI Controller — pe³ni rolê ³¹cznika miêdzy interfejsem u¿ytkownika
@@ -20,31 +19,32 @@ using Slider = UnityEngine.UIElements.Slider;
 public class AcousticUIController : MonoBehaviour
 {
     private UIDocument doc;
-    
-    [Header("References")]
-    public RoomAcousticsManager acoustics;
+
+    [Header("References")] public RoomAcousticsManager acoustics;
     public SurroundSystemFactory systemFactory;
 
     [Header("UI Elements – system selection")]
     public DropdownField systemDropdown;
 
     public Button startButton;
-    
+
     [Header("UI Elements – speaker controls")]
     public TMP_Dropdown speakerDropdown;
+
     public Slider speakerLevelSlider;
     public Slider speakerRotationSlider;
 
     [Header("UI Elements – listener controls")]
     public Slider listenerX;
+
     public Slider listenerZ;
 
     [Header("UI Elements – material controls")]
     public TMP_Dropdown surfaceDropdown;
+
     public TMP_Dropdown materialDropdown;
 
-    [Header("UI Elements – debug")]
-    public TMP_Text infoText;
+    [Header("UI Elements – debug")] public Label infoText;
 
     private Speaker[] currentSpeakers;
 
@@ -55,10 +55,11 @@ public class AcousticUIController : MonoBehaviour
         startButton = doc.rootVisualElement.Q<Button>("start_simulation");
         speakerLevelSlider = doc.rootVisualElement.Q<Slider>("sound_level");
         systemDropdown = doc.rootVisualElement.Q<DropdownField>("system_dropdown");
-        
-        //startButton.RegisterCallback<ClickEvent>(RunSimulation);
+        infoText = doc.rootVisualElement.Q<Label>("info_text");
+
+        startButton.RegisterCallback<ClickEvent>(Run);
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
-        systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);//(OnSystemSelected);
+        systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);
     }
 
     private void Start()
@@ -74,7 +75,8 @@ public class AcousticUIController : MonoBehaviour
 
         //surfaceDropdown.onValueChanged.AddListener(OnSurfaceSelected);
         //materialDropdown.onValueChanged.AddListener(OnMaterialSelected);
-
+        acoustics = RoomAcousticsManager.Instance;
+        systemFactory = acoustics.systemFactory;
         RefreshInfo();
     }
 
@@ -83,25 +85,28 @@ public class AcousticUIController : MonoBehaviour
     private void OnSystemSelected(ChangeEvent<string> selectedConfiguration)
     {
         Debug.LogError(selectedConfiguration.newValue);
-        
-        switch (selectedConfiguration.newValue)
-        {
-            case "5.1":
-                systemFactory.Build51();
-                break;
-            case "7.1":
-                systemFactory.Build71();
-                break;
-            default:
-                systemFactory.Build91();
-                break;
-        }
 
-        currentSpeakers = systemFactory.CreatedSpeakers.ToArray();
-        Debug.Log($"{currentSpeakers}:{currentSpeakers.Length}");
-        RebuildSpeakerDropdown();
-        acoustics.RunSimulation();
-        RefreshInfo();
+        systemDropdown.schedule.Execute(() =>
+        {
+            switch (selectedConfiguration.newValue)
+            {
+                case "5.1":
+                    systemFactory.Build51();
+                    break;
+                case "7.1":
+                    systemFactory.Build71();
+                    break;
+                default:
+                    systemFactory.Build91();
+                    break;
+            }
+
+            currentSpeakers = systemFactory.CreatedSpeakers.ToArray();
+            Debug.Log($"{currentSpeakers}:{currentSpeakers.Length}");
+            RebuildSpeakerDropdown();
+            acoustics.RunSimulation();
+            RefreshInfo();
+        });
     }
 
     // --- SPEAKER LIST ---------------------------------------------------------
@@ -215,8 +220,14 @@ public class AcousticUIController : MonoBehaviour
 
     public void OnDisable()
     {
-        //startButton.UnregisterCallback<ClickEvent>(RunSimulation);
+        startButton.UnregisterCallback<ClickEvent>(Run);
         speakerLevelSlider.UnregisterValueChangedCallback(OnSpeakerLevelChanged);
-        systemDropdown.UnregisterCallback<ChangeEvent<string>>(OnSystemSelected);
+        systemDropdown.UnregisterValueChangedCallback(OnSystemSelected);
+    }
+
+    private void Run(ClickEvent evt)
+    {
+        RefreshInfo();
+        acoustics?.RunSimulation();
     }
 }

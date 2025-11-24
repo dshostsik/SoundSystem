@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +40,11 @@ public class RoomAcousticsManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        systemFactory = GetComponent<SurroundSystemFactory>() ?? throw new ArgumentNullException("Surround System Factory not found.");
+    }
+
     /// <summary>
     /// G³ówna metoda symulacji.  
     /// 1. Pobiera listê g³oœników
@@ -52,9 +58,9 @@ public class RoomAcousticsManager : MonoBehaviour
     {
         var speakers = systemFactory.CreatedSpeakers;
 
-        if (speakers.Count == 0 || listener == null || room == null)
+        if (speakers.Count == 0 || listener.Equals(null) || room.Equals(null))
         {
-            Debug.LogWarning("Simulation aborted: missing speakers, listener or room.");
+            Debug.LogWarning($"Simulation aborted: missing speakers ({speakers.Count} speakers found), listener ({listener == null}) or room ({room == null}).");
             return;
         }
 

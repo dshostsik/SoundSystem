@@ -147,8 +147,8 @@ Transform:
   m_GameObject: {fileID: 42160873}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.63, y: 0, z: -4.316}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.29, y: 2.61, z: -5.17}
+  m_LocalScale: {x: 9.1942, y: 4.6576, z: 0.34066}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1606848571}
@@ -258,8 +258,8 @@ Transform:
   m_GameObject: {fileID: 70339535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.26, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -5.26, y: 2.32, z: 0}
+  m_LocalScale: {x: 0.14945, y: 5.497, z: 9.56978}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1606848571}
@@ -370,9 +370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4caf75343d14aaaa7639ca13b6eef73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
-  width: 5
+  width: 6
   length: 4
-  height: 2
+  height: 2.5
   surfaces:
   - surfaceName: Surface
     surfaceCollider: {fileID: 0}
@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 330585548}
   - component: {fileID: 330585551}
   - component: {fileID: 330585550}
+  - component: {fileID: 330585552}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -503,7 +504,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 3.88, z: -7.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -612,6 +613,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9250c480ce3e14bbe3c2b94dbdc105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!135 &330585552
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +659,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -767,8 +789,8 @@ Transform:
   m_GameObject: {fileID: 438961945}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5.43}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.00000047684, y: 1.42, z: 5.07}
+  m_LocalScale: {x: 11.075482, y: 6.7824, z: 0.25374973}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1606848571}
@@ -1032,11 +1054,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AcousticUIController
   acoustics: {fileID: 0}
   systemFactory: {fileID: 0}
-  systemDropdown: {fileID: 0}
   speakerDropdown: {fileID: 0}
   surfaceDropdown: {fileID: 0}
   materialDropdown: {fileID: 0}
-  infoText: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1440,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1436511948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436511950}
+  - component: {fileID: 1436511949}
+  - component: {fileID: 1436511951}
+  m_Layer: 0
+  m_Name: RoomAcousticManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1436511949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436511948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aaac7350ed7d724b915da12a76e3f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomAcousticsManager
+  room: {fileID: 1606848570}
+  listener: {fileID: 330585551}
+  systemFactory: {fileID: 0}
+  visualizer: {fileID: 0}
+  speedOfSound: 343
+  fftSize: 4096
+  sampleRate: 44100
+--- !u!4 &1436511950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436511948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.60179, y: 0.5, z: -1.18143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1436511951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436511948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18b0ba69bbf3fe4088be271906add50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurroundSystemFactory
+  speakerPrefab: {fileID: 0}
 --- !u!1 &1606848569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1531,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1606848569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4caf75343d14aaaa7639ca13b6eef73, type: 3}
+  m_Script: {fileID: 11500000, guid: ad6ca0603aaee4645b367771b321ea66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   width: 6
@@ -1605,7 +1690,7 @@ Transform:
   m_GameObject: {fileID: 1750031249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 0.652, z: 6.46}
+  m_LocalPosition: {x: -0.97, y: 2.23, z: -2.8}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1667,8 +1752,8 @@ Transform:
   m_GameObject: {fileID: 1872577576}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.2, y: 0.73, z: -4.614}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 5.2, y: 1.86, z: -0.11}
+  m_LocalScale: {x: 0.33055, y: 5.5639, z: 9.504997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1606848571}
@@ -1843,3 +1928,4 @@ SceneRoots:
   - {fileID: 1606848571}
   - {fileID: 2050505617}
   - {fileID: 683166826}
+  - {fileID: 1436511950}
