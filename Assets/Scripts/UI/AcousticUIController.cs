@@ -52,10 +52,12 @@ public class AcousticUIController : MonoBehaviour
     {
         doc = GetComponent<UIDocument>();
 
-        startButton = doc.rootVisualElement.Q<Button>("start_simulation");
-        speakerLevelSlider = doc.rootVisualElement.Q<Slider>("sound_level");
-        systemDropdown = doc.rootVisualElement.Q<DropdownField>("system_dropdown");
-        infoText = doc.rootVisualElement.Q<Label>("info_text");
+        var root = doc.rootVisualElement;
+        
+        startButton = root.Q<Button>("start_simulation");
+        speakerLevelSlider = root.Q<Slider>("sound_level");
+        systemDropdown = root.Q<DropdownField>("system_dropdown");
+        infoText = root.Q<Label>("info_text");
 
         startButton.RegisterCallback<ClickEvent>(Run);
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);

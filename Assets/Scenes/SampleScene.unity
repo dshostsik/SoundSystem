@@ -944,7 +944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: fc8ddf0269028304d89f66fe1f181e65, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 3e86a3a9471bde843981557acb3518e0, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 26f480f3d0141bd47b11ca8a232de907, type: 3}
   m_SortingOrder: 0
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -1401,57 +1401,6 @@ Transform:
   - {fileID: 70339536}
   - {fileID: 42160874}
   - {fileID: 438961946}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1651018858
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1651018860}
-  - component: {fileID: 1651018859}
-  m_Layer: 0
-  m_Name: AcousticsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1651018859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651018858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aaac7350ed7d724b915da12a76e3f63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoomAcousticsManager
-  room: {fileID: 1606848570}
-  listener: {fileID: 330585551}
-  systemFactory: {fileID: 0}
-  visualizer: {fileID: 0}
-  speedOfSound: 343
-  fftSize: 4096
-  sampleRate: 44100
---- !u!4 &1651018860
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651018858}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.10603, y: 0.5, z: -2.2955}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1699882149
@@ -1995,6 +1944,5 @@ SceneRoots:
   - {fileID: 683166826}
   - {fileID: 1436511950}
   - {fileID: 2142430107}
-  - {fileID: 1651018860}
   - {fileID: 1699882151}
   - {fileID: 1881019424}
