@@ -1266,8 +1266,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1436511950}
-  - component: {fileID: 1436511949}
   - component: {fileID: 1436511951}
+  - component: {fileID: 1436511949}
   m_Layer: 0
   m_Name: RoomAcousticManager
   m_TagString: Untagged
@@ -1322,6 +1322,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurroundSystemFactory
   speakerPrefab: {fileID: 0}
+  config51: {fileID: 0}
+  config71: {fileID: 0}
+  config91: {fileID: 0}
 --- !u!1 &1606848569
 GameObject:
   m_ObjectHideFlags: 0
