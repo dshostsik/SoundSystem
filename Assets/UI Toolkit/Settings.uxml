@@ -5,4 +5,5 @@
         <ui:Slider label="Level" value="42" high-value="100" name="sound_level" />
         <ui:DropdownField label="Choose system" name="system_dropdown" choices="5.1,7.1,9.1" />
     </ui:VisualElement>
+    <ui:Label text="Label" name="info_text" />
 </ui:UXML>
