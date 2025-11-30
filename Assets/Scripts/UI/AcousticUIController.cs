@@ -86,10 +86,8 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnSystemSelected(ChangeEvent<string> selectedConfiguration)
     {
-        Debug.LogError(selectedConfiguration.newValue);
-
-        systemDropdown.schedule.Execute(() =>
-        {
+        // systemDropdown.schedule.Execute(() =>
+        // {
             switch (selectedConfiguration.newValue)
             {
                 case "5_1":
@@ -108,7 +106,7 @@ public class AcousticUIController : MonoBehaviour
             RebuildSpeakerDropdown();
             acoustics.RunSimulation();
             RefreshInfo();
-        });
+        //});
     }
 
     // --- SPEAKER LIST ---------------------------------------------------------

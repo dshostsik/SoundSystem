@@ -3,7 +3,7 @@
         <ui:Label text="Settings" name="main_menu" />
         <ui:Button text="Begin" name="start_simulation" />
         <ui:Slider label="Level" value="42" high-value="100" name="sound_level" />
-        <ui:DropdownField label="Choose system" name="system_dropdown" choices="5.1,7.1,9.1" />
+        <ui:DropdownField label="Choose system" name="system_dropdown" choices="5_1,7_1,9_1" />
         <ui:Label text="Label" name="info_text" />
     </ui:VisualElement>
 </ui:UXML>
