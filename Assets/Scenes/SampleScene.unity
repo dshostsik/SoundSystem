@@ -985,55 +985,6 @@ MonoBehaviour:
   speakerDropdown: {fileID: 0}
   surfaceDropdown: {fileID: 0}
   materialDropdown: {fileID: 0}
---- !u!1 &762267356
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 762267358}
-  - component: {fileID: 762267357}
-  m_Layer: 0
-  m_Name: AcousticUIControler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &762267357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762267356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73024a566e8eed4d974b5e1e2ad8d62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AcousticUIController
-  acoustics: {fileID: 1436511949}
-  systemFactory: {fileID: 1699882150}
-  speakerDropdown: {fileID: 0}
-  surfaceDropdown: {fileID: 0}
-  materialDropdown: {fileID: 0}
---- !u!4 &762267358
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762267356}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7263, y: 2.87241, z: -4.58427}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1316,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436511948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d18b0ba69bbf3fe4088be271906add50, type: 3}
   m_Name: 
@@ -1995,4 +1946,3 @@ SceneRoots:
   - {fileID: 2142430107}
   - {fileID: 1699882151}
   - {fileID: 1881019424}
-  - {fileID: 762267358}
