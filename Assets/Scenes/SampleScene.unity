@@ -466,7 +466,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9991021, z: -0, w: -0.042367697}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: -1.01, y: 1.2, z: 0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -737,7 +737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7999605605352574599, guid: c365ab98c189ba44dadd59576f689438, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.6654644
+      value: -1.96
       objectReference: {fileID: 0}
     - target: {fileID: 7999605605352574599, guid: c365ab98c189ba44dadd59576f689438, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1107,7 +1107,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AcousticUIController
   acoustics: {fileID: 1436511949}
   systemFactory: {fileID: 1699882150}
-  speakerDropdown: {fileID: 0}
   surfaceDropdown: {fileID: 0}
   materialDropdown: {fileID: 0}
 --- !u!1 &832575517

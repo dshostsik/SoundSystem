@@ -37,6 +37,7 @@ public class SurroundSystemFactory : MonoBehaviour
     {
         ClearExistingSpeakers();
 
+        // TODO delete when complete
         if (speakerPrefab == null) throw new System.Exception("Speaker prefab not set!");
         if (speakerPrefab.GetComponent<Speaker>() == null) throw new System.Exception("Speaker prefab does not contain Speaker component!");
         
@@ -48,8 +49,8 @@ public class SurroundSystemFactory : MonoBehaviour
                 Quaternion.Euler(config.defaultRotations.Length > i ? config.defaultRotations[i] : Vector3.zero)
             );
 
-            obj.tag = "Movable";
-            obj.AddComponent<MovableObject>();
+            //obj.tag = "Movable";
+            //obj.AddComponent<MovableObject>();
 
             Speaker sp = obj.GetComponent<Speaker>();
             sp.channelName = config.channelNames[i];

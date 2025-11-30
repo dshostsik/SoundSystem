@@ -29,7 +29,7 @@ public class AcousticUIController : MonoBehaviour
     public Button startButton;
 
     [Header("UI Elements – speaker controls")]
-    public TMP_Dropdown speakerDropdown;
+    public DropdownField speakerDropdown;
 
     public Slider speakerLevelSlider;
     public Slider speakerRotationSlider;
@@ -48,6 +48,8 @@ public class AcousticUIController : MonoBehaviour
 
     private Speaker[] currentSpeakers;
 
+    private int currentSpekaerSelection = -1;
+    
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -58,10 +60,12 @@ public class AcousticUIController : MonoBehaviour
         speakerLevelSlider = root.Q<Slider>("sound_level");
         systemDropdown = root.Q<DropdownField>("system_dropdown");
         infoText = root.Q<Label>("info_text");
+        speakerDropdown = root.Q<DropdownField>("speaker_dropdown");
 
         startButton.RegisterCallback<ClickEvent>(Run);
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);
+        speakerDropdown.RegisterCallback<ChangeEvent<string>>(OnSpeakerSelected);
     }
 
     private void Start()
@@ -115,25 +119,24 @@ public class AcousticUIController : MonoBehaviour
 
     private void RebuildSpeakerDropdown()
     {
-        speakerDropdown.ClearOptions();
+        speakerDropdown.Clear();
         foreach (var sp in currentSpeakers)
-            speakerDropdown.options.Add(new TMP_Dropdown.OptionData(sp.channelName));
-
-        speakerDropdown.RefreshShownValue();
+            speakerDropdown.choices.Add(sp.channelName);
     }
 
-    private Speaker GetSelectedSpeaker()
+    private Speaker GetSelectedSpeaker(int idx)
     {
-        int idx = speakerDropdown.value;
         if (idx < 0 || idx >= currentSpeakers.Length) return null;
         return currentSpeakers[idx];
     }
 
     // --- SPEAKER PARAMS -------------------------------------------------------
 
-    private void OnSpeakerSelected(int index)
+    private void OnSpeakerSelected(ChangeEvent<string> selectedSpeaker)
     {
-        var sp = GetSelectedSpeaker();
+        int.TryParse(selectedSpeaker.newValue, out currentSpekaerSelection);
+        
+        var sp = GetSelectedSpeaker(currentSpekaerSelection);
         if (sp == null) return;
 
         speakerLevelSlider.value = sp.baseLevel;
@@ -142,7 +145,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnSpeakerLevelChanged(ChangeEvent<float> newLevel)
     {
-        var sp = GetSelectedSpeaker();
+        var sp = GetSelectedSpeaker(currentSpekaerSelection);
         if (sp == null) return;
 
         sp.SetBaseLevel(newLevel.newValue);
@@ -151,7 +154,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnSpeakerRotationChanged(float rotY)
     {
-        var sp = GetSelectedSpeaker();
+        var sp = GetSelectedSpeaker(currentSpekaerSelection);
         if (sp == null) return;
 
         sp.SetRotation(Quaternion.Euler(0, rotY, 0));
@@ -225,6 +228,7 @@ public class AcousticUIController : MonoBehaviour
         startButton.UnregisterCallback<ClickEvent>(Run);
         speakerLevelSlider.UnregisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.UnregisterValueChangedCallback(OnSystemSelected);
+        speakerDropdown.UnregisterValueChangedCallback(OnSpeakerSelected);
     }
 
     private void Run(ClickEvent evt)

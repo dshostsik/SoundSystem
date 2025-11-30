@@ -4,6 +4,7 @@
         <ui:Button text="Begin" name="start_simulation" />
         <ui:Slider label="Level" value="42" high-value="100" name="sound_level" />
         <ui:DropdownField label="Choose system" name="system_dropdown" choices="5_1,7_1,9_1" />
+        <ui:DropdownField label="Edit speaker" name="speaker_dropdown" />
         <ui:Label text="Label" name="info_text" />
     </ui:VisualElement>
 </ui:UXML>
