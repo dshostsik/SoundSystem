@@ -37,6 +37,9 @@ public class SurroundSystemFactory : MonoBehaviour
     {
         ClearExistingSpeakers();
 
+        if (speakerPrefab == null) throw new System.Exception("Speaker prefab not set!");
+        if (speakerPrefab.GetComponent<Speaker>() == null) throw new System.Exception("Speaker prefab does not contain Speaker component!");
+        
         for (int i = 0; i < config.defaultPositions.Length; i++)
         {
             GameObject obj = Instantiate(
