@@ -37,7 +37,6 @@ public class RoomAcousticsManager : MonoBehaviour
 
     private void Awake()
     {
-        systemFactory = GetComponent<SurroundSystemFactory>() ?? throw new ArgumentNullException("Surround System Factory not found.");
         Instance = this;
     }
 
