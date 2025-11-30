@@ -21,6 +21,7 @@ public class SurroundSystemFactory : MonoBehaviour
     public SurroundSystemConfig config71;
     public SurroundSystemConfig config91;
 
+    // TODO: make this HashMap with values <string, Speaker> where key is channel name and speaker is corresponding speaker
     private List<Speaker> createdSpeakers = new List<Speaker>();
 
     public IReadOnlyList<Speaker> CreatedSpeakers => createdSpeakers;
