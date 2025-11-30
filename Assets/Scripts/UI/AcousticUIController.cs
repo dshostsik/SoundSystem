@@ -119,7 +119,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void RebuildSpeakerDropdown()
     {
-        speakerDropdown.Clear();
+        speakerDropdown.choices.Clear();
         foreach (var sp in currentSpeakers)
             speakerDropdown.choices.Add(sp.channelName);
     }
@@ -134,7 +134,18 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnSpeakerSelected(ChangeEvent<string> selectedSpeaker)
     {
-        int.TryParse(selectedSpeaker.newValue, out currentSpekaerSelection);
+        //int.TryParse(selectedSpeaker.newValue, out currentSpekaerSelection);
+        
+        var speakers = systemFactory.CreatedSpeakers;
+
+        for (int i = 0; i < speakers.Count; i++)
+        {
+            if (speakers[i].channelName == selectedSpeaker.newValue)
+            {
+                currentSpekaerSelection = i;
+                break;
+            }
+        }
         
         var sp = GetSelectedSpeaker(currentSpekaerSelection);
         if (sp == null) return;
