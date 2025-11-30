@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 42160877}
   - component: {fileID: 42160876}
   - component: {fileID: 42160875}
+  - component: {fileID: 42160878}
   m_Layer: 0
   m_Name: FrontWall
   m_TagString: Untagged
@@ -230,6 +231,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42160873}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &42160878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42160873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bff8e81bf792184fbea3739ff3fbdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomSurface
+  surfaceName: Surface
+  surfaceCollider: {fileID: 42160875}
+  material: {fileID: 11400000, guid: 8acc9feb414db074696a19e34064ad38, type: 2}
+  enabled: 1
 --- !u!1 &70339535
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +259,7 @@ GameObject:
   - component: {fileID: 70339539}
   - component: {fileID: 70339538}
   - component: {fileID: 70339537}
+  - component: {fileID: 70339540}
   m_Layer: 0
   m_Name: LeftWall
   m_TagString: Untagged
@@ -341,6 +359,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70339535}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &70339540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70339535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bff8e81bf792184fbea3739ff3fbdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomSurface
+  surfaceName: Surface
+  surfaceCollider: {fileID: 70339537}
+  material: {fileID: 11400000, guid: 8acc9feb414db074696a19e34064ad38, type: 2}
+  enabled: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +792,7 @@ GameObject:
   - component: {fileID: 438961949}
   - component: {fileID: 438961948}
   - component: {fileID: 438961947}
+  - component: {fileID: 438961950}
   m_Layer: 0
   m_Name: BackWall
   m_TagString: Untagged
@@ -857,6 +892,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438961945}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &438961950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438961945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bff8e81bf792184fbea3739ff3fbdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomSurface
+  surfaceName: Surface
+  surfaceCollider: {fileID: 438961947}
+  material: {fileID: 11400000, guid: 8acc9feb414db074696a19e34064ad38, type: 2}
+  enabled: 1
 --- !u!1 &633705485
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +920,7 @@ GameObject:
   - component: {fileID: 633705489}
   - component: {fileID: 633705488}
   - component: {fileID: 633705487}
+  - component: {fileID: 633705490}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -969,6 +1021,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633705485}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &633705490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633705485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bff8e81bf792184fbea3739ff3fbdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomSurface
+  surfaceName: Surface
+  surfaceCollider: {fileID: 633705487}
+  material: {fileID: 11400000, guid: 0d61b8a4886ac6849ab4c046c0c05804, type: 2}
+  enabled: 1
 --- !u!1 &683166824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1171,7 @@ GameObject:
   - component: {fileID: 1036623434}
   - component: {fileID: 1036623433}
   - component: {fileID: 1036623432}
+  - component: {fileID: 1036623435}
   m_Layer: 0
   m_Name: Ceiling
   m_TagString: Untagged
@@ -1203,6 +1272,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036623430}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1036623435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036623430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bff8e81bf792184fbea3739ff3fbdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomSurface
+  surfaceName: Surface
+  surfaceCollider: {fileID: 1036623432}
+  material: {fileID: 11400000, guid: 6dc72795277b448478a2083a18f91aa0, type: 2}
+  enabled: 1
 --- !u!1 &1436511948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,30 +1372,12 @@ MonoBehaviour:
   length: 4
   height: 2.5
   surfaces:
-  - surfaceName: Surface
-    surfaceCollider: {fileID: 0}
-    material: {fileID: 0}
-    enabled: 1
-  - surfaceName: Surface
-    surfaceCollider: {fileID: 0}
-    material: {fileID: 0}
-    enabled: 1
-  - surfaceName: Surface
-    surfaceCollider: {fileID: 0}
-    material: {fileID: 0}
-    enabled: 1
-  - surfaceName: Surface
-    surfaceCollider: {fileID: 0}
-    material: {fileID: 0}
-    enabled: 1
-  - surfaceName: Surface
-    surfaceCollider: {fileID: 0}
-    material: {fileID: 0}
-    enabled: 1
-  - surfaceName: Surface
-    surfaceCollider: {fileID: 0}
-    material: {fileID: 0}
-    enabled: 1
+  - {fileID: 1036623435}
+  - {fileID: 633705490}
+  - {fileID: 1872577581}
+  - {fileID: 70339540}
+  - {fileID: 42160878}
+  - {fileID: 438961950}
 --- !u!4 &1606848571
 Transform:
   m_ObjectHideFlags: 0
@@ -1392,6 +1459,7 @@ GameObject:
   - component: {fileID: 1872577580}
   - component: {fileID: 1872577579}
   - component: {fileID: 1872577578}
+  - component: {fileID: 1872577581}
   m_Layer: 0
   m_Name: RightWall
   m_TagString: Untagged
@@ -1491,6 +1559,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872577576}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1872577581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872577576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bff8e81bf792184fbea3739ff3fbdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomSurface
+  surfaceName: Surface
+  surfaceCollider: {fileID: 1872577578}
+  material: {fileID: 11400000, guid: 8acc9feb414db074696a19e34064ad38, type: 2}
+  enabled: 1
 --- !u!1 &1881019420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1787,7 @@ MonoBehaviour:
   speakerPrefab: {fileID: 7980201099532493235, guid: c365ab98c189ba44dadd59576f689438, type: 3}
   system51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
   system71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
+  system91: {fileID: 11400000, guid: b10286a2ad0f97543b9a1e336ea741ab, type: 2}
 --- !u!4 &2142430107
 Transform:
   m_ObjectHideFlags: 0

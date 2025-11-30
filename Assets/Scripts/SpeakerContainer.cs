@@ -20,6 +20,7 @@ public class SpeakerContainer : MonoBehaviour
     public GameObject speakerPrefab;
     public SurroundSystemConfig system51;
     public SurroundSystemConfig system71;
+    public SurroundSystemConfig system91;
 
     /// <summary>
     /// Prepare container to prevent race condition while executing Start() on Speaker

@@ -7,7 +7,7 @@ using UnityEngine;
 /// Dostarcza pomocnicze metody geometryczne do obliczania lustrzanego Ÿród³a.
 /// </summary>
 [Serializable]
-public class RoomSurface
+public class RoomSurface : MonoBehaviour
 {
     [Tooltip("Nazwa powierzchni (np. Wall_Left)")]
     public string surfaceName = "Surface";
