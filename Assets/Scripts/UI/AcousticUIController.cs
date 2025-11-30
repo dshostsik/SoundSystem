@@ -204,7 +204,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void RefreshInfo()
     {
-        var speakers = acoustics.systemFactory.CreatedSpeakers;
+        var speakers = systemFactory.CreatedSpeakers;
 
         string msg = $"Speakers: {speakers.Count}\n";
         msg += $"Listener: {acoustics.listener.transform.position}\n";
