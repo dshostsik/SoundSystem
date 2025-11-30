@@ -21,13 +21,18 @@ public class SurroundSystemFactory : MonoBehaviour
     public SurroundSystemConfig config71;
     public SurroundSystemConfig config91;
 
-    private readonly List<Speaker> createdSpeakers = new List<Speaker>();
+    private List<Speaker> createdSpeakers = new List<Speaker>();
 
     public IReadOnlyList<Speaker> CreatedSpeakers => createdSpeakers;
 
     /// <summary>
     /// Tworzy system surround zgodnie z podanym configiem.
     /// </summary>
+    /// 
+    private void Start()
+    {
+        Debug.Log("dedede");
+    }
     public List<Speaker> CreateSystem(SurroundSystemConfig config)
     {
         ClearExistingSpeakers();

@@ -980,11 +980,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73024a566e8eed4d974b5e1e2ad8d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AcousticUIController
-  acoustics: {fileID: 0}
-  systemFactory: {fileID: 0}
+  acoustics: {fileID: 1436511949}
+  systemFactory: {fileID: 1699882150}
   speakerDropdown: {fileID: 0}
   surfaceDropdown: {fileID: 0}
   materialDropdown: {fileID: 0}
+--- !u!1 &762267356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 762267358}
+  - component: {fileID: 762267357}
+  m_Layer: 0
+  m_Name: AcousticUIControler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &762267357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762267356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73024a566e8eed4d974b5e1e2ad8d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AcousticUIController
+  acoustics: {fileID: 1436511949}
+  systemFactory: {fileID: 1699882150}
+  speakerDropdown: {fileID: 0}
+  surfaceDropdown: {fileID: 0}
+  materialDropdown: {fileID: 0}
+--- !u!4 &762267358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762267356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.7263, y: 2.87241, z: -4.58427}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,8 +1372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurroundSystemFactory
   speakerPrefab: {fileID: 0}
   config51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
-  config71: {fileID: 0}
-  config91: {fileID: 0}
+  config71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
+  config91: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
 --- !u!1 &1606848569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,8 +1483,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurroundSystemFactory
   speakerPrefab: {fileID: 7980201099532493235, guid: c365ab98c189ba44dadd59576f689438, type: 3}
   config51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
-  config71: {fileID: 0}
-  config91: {fileID: 0}
+  config71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
+  config91: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
 --- !u!4 &1699882151
 Transform:
   m_ObjectHideFlags: 0
@@ -1913,8 +1962,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeakerContainer
   speakerPrefab: {fileID: 7980201099532493235, guid: c365ab98c189ba44dadd59576f689438, type: 3}
-  system51: {fileID: 0}
-  system71: {fileID: 0}
+  system51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
+  system71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
 --- !u!4 &2142430107
 Transform:
   m_ObjectHideFlags: 0
@@ -1946,3 +1995,4 @@ SceneRoots:
   - {fileID: 2142430107}
   - {fileID: 1699882151}
   - {fileID: 1881019424}
+  - {fileID: 762267358}

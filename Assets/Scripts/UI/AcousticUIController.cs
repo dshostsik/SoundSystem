@@ -92,10 +92,10 @@ public class AcousticUIController : MonoBehaviour
         {
             switch (selectedConfiguration.newValue)
             {
-                case "5.1":
+                case "5_1":
                     systemFactory.Build51();
                     break;
-                case "7.1":
+                case "7_1":
                     systemFactory.Build71();
                     break;
                 default:
