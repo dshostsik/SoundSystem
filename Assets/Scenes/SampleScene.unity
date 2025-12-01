@@ -1318,7 +1318,7 @@ MonoBehaviour:
   room: {fileID: 1606848570}
   listener: {fileID: 330585551}
   systemFactory: {fileID: 1699882150}
-  visualizer: {fileID: 0}
+  visualizer: {fileID: 805173247}
   speedOfSound: 343
   fftSize: 4096
   sampleRate: 44100
