@@ -15,11 +15,11 @@ public class RayAcousticTracer
     /// <summary>
     /// G³ówna metoda: oblicza wszystkie œcie¿ki dla wszystkich g³oœników.
     /// </summary>
-    public List<AcousticPath> ComputePaths(Room room, IReadOnlyList<Speaker> speakers, Player player)
+    public List<AcousticPath> ComputePaths(Room room, IReadOnlyDictionary<string, Speaker> speakers, Player player)
     {
         List<AcousticPath> paths = new List<AcousticPath>();
 
-        foreach (var sp in speakers)
+        foreach (var sp in speakers.Values)
         {
             // 1) Path direct
             AcousticPath direct = ComputeDirectPath(sp, player);

@@ -21,10 +21,9 @@ public class SurroundSystemFactory : MonoBehaviour
     public SurroundSystemConfig config71;
     public SurroundSystemConfig config91;
 
-    // TODO: make this HashMap with values <string, Speaker> where key is channel name and speaker is corresponding speaker
-    private List<Speaker> createdSpeakers = new List<Speaker>();
+    private Dictionary<string, Speaker> createdSpeakers = new();
 
-    public IReadOnlyList<Speaker> CreatedSpeakers => createdSpeakers;
+    public IReadOnlyDictionary<string, Speaker> CreatedSpeakers => createdSpeakers;
 
     /// <summary>
     /// Tworzy system surround zgodnie z podanym configiem.
@@ -34,8 +33,11 @@ public class SurroundSystemFactory : MonoBehaviour
     {
         Debug.Log("dedede");
     }
-    public List<Speaker> CreateSystem(SurroundSystemConfig config)
+    
+    public void CreateSystem(SurroundSystemConfig config)
     {
+        // Idk why it returned the list of speakers. we did not use it at all
+        // so i decided to make it void
         ClearExistingSpeakers();
 
         // TODO delete when complete
@@ -56,10 +58,10 @@ public class SurroundSystemFactory : MonoBehaviour
             Speaker sp = obj.GetComponent<Speaker>();
             sp.channelName = config.channelNames[i];
 
-            createdSpeakers.Add(sp);
+            createdSpeakers.Add(sp.channelName, sp);
         }
 
-        return createdSpeakers;
+        //return createdSpeakers;
     }
 
     /// <summary>
@@ -67,7 +69,7 @@ public class SurroundSystemFactory : MonoBehaviour
     /// </summary>
     public void ClearExistingSpeakers()
     {
-        foreach (var sp in createdSpeakers)
+        foreach (var sp in createdSpeakers.Values)
             if (sp != null) Destroy(sp.gameObject);
 
         createdSpeakers.Clear();

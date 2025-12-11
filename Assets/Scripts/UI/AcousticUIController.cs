@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -46,16 +47,15 @@ public class AcousticUIController : MonoBehaviour
 
     [Header("UI Elements – debug")] public Label infoText;
 
-    private Speaker[] currentSpeakers;
+    private IReadOnlyDictionary<string, Speaker> currentSpeakers;
+    private Speaker currentSpeakerSelection;
 
-    private int currentSpekaerSelection = -1;
-    
     void Awake()
     {
         doc = GetComponent<UIDocument>();
 
         var root = doc.rootVisualElement;
-        
+
         startButton = root.Q<Button>("start_simulation");
         speakerLevelSlider = root.Q<Slider>("sound_level");
         systemDropdown = root.Q<DropdownField>("system_dropdown");
@@ -90,8 +90,8 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnSystemSelected(ChangeEvent<string> selectedConfiguration)
     {
-        string newValue = (string) selectedConfiguration.newValue.Clone();
-        
+        string newValue = (string)selectedConfiguration.newValue.Clone();
+
         systemDropdown.schedule.Execute(() =>
         {
             switch (newValue)
@@ -107,8 +107,8 @@ public class AcousticUIController : MonoBehaviour
                     break;
             }
 
-            currentSpeakers = systemFactory.CreatedSpeakers.ToArray();
-            Debug.Log($"{currentSpeakers}:{currentSpeakers.Length}");
+            currentSpeakers = systemFactory.CreatedSpeakers;
+            Debug.Log($"{currentSpeakers}:{currentSpeakers.Count}");
             RebuildSpeakerDropdown();
             acoustics.RunSimulation();
             RefreshInfo();
@@ -120,55 +120,40 @@ public class AcousticUIController : MonoBehaviour
     private void RebuildSpeakerDropdown()
     {
         speakerDropdown.choices.Clear();
-        foreach (var sp in currentSpeakers)
-            speakerDropdown.choices.Add(sp.channelName);
+        foreach (var sp in currentSpeakers.Keys)
+            speakerDropdown.choices.Add(sp);
     }
 
-    private Speaker GetSelectedSpeaker(int idx)
+    private Speaker GetSelectedSpeaker(string requiredChannel)
     {
-        if (idx < 0 || idx >= currentSpeakers.Length) return null;
-        return currentSpeakers[idx];
+        return currentSpeakers[requiredChannel];
     }
 
     // --- SPEAKER PARAMS -------------------------------------------------------
 
     private void OnSpeakerSelected(ChangeEvent<string> selectedSpeaker)
     {
-        //int.TryParse(selectedSpeaker.newValue, out currentSpekaerSelection);
-        
-        var speakers = systemFactory.CreatedSpeakers;
+        currentSpeakerSelection = GetSelectedSpeaker(selectedSpeaker.newValue);
+        if (currentSpeakerSelection == null) return;
 
-        for (int i = 0; i < speakers.Count; i++)
-        {
-            if (speakers[i].channelName == selectedSpeaker.newValue)
-            {
-                currentSpekaerSelection = i;
-                break;
-            }
-        }
-        
-        var sp = GetSelectedSpeaker(currentSpekaerSelection);
-        if (sp == null) return;
-
-        speakerLevelSlider.value = sp.baseLevel;
-        speakerRotationSlider.value = sp.transform.eulerAngles.y;
+        speakerLevelSlider.value = currentSpeakerSelection.baseLevel;
+        // TODO: bring back when rotation slider implemented
+//        speakerRotationSlider.value = currentSpeakerSelection.transform.eulerAngles.y;
     }
 
     private void OnSpeakerLevelChanged(ChangeEvent<float> newLevel)
     {
-        var sp = GetSelectedSpeaker(currentSpekaerSelection);
-        if (sp == null) return;
+        if (currentSpeakerSelection == null) return;
 
-        sp.SetBaseLevel(newLevel.newValue);
+        currentSpeakerSelection.SetBaseLevel(newLevel.newValue);
         RefreshInfo();
     }
 
     private void OnSpeakerRotationChanged(float rotY)
     {
-        var sp = GetSelectedSpeaker(currentSpekaerSelection);
-        if (sp == null) return;
+        if (currentSpeakerSelection == null) return;
 
-        sp.SetRotation(Quaternion.Euler(0, rotY, 0));
+        currentSpeakerSelection.SetRotation(Quaternion.Euler(0, rotY, 0));
         RefreshInfo();
     }
 
@@ -227,7 +212,7 @@ public class AcousticUIController : MonoBehaviour
         if (speakers.Count > 0)
         {
             msg += "\nSpeaker Levels:\n";
-            foreach (var sp in speakers)
+            foreach (var sp in speakers.Values)
                 msg += $"{sp.channelName} = {sp.baseLevel:F2}\n";
         }
 

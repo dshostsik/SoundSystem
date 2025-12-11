@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -74,7 +75,7 @@ public class RoomAcousticsManager : MonoBehaviour
         var h = irGenerator.GenerateImpulseResponse(H);
 
         // 4. (opcjonalnie) wymuœ splot z sygna³em któregoœ g³oœnika
-        Speaker referenceSpeaker = speakers[0];
+        Speaker referenceSpeaker = speakers["L"];
         float[] referenceSignal = referenceSpeaker.testSignal;
         float[] outputSignal = null;
 
