@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Movable
+  - RoomParts
   layers:
   - Default
   - TransparentFX
