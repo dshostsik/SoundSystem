@@ -50,6 +50,8 @@ public class AcousticUIController : MonoBehaviour
     private IReadOnlyDictionary<string, Speaker> currentSpeakers;
     private Speaker currentSpeakerSelection;
 
+    public static event Action ConfigurationChangedEvent;
+    
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -83,6 +85,7 @@ public class AcousticUIController : MonoBehaviour
         //materialDropdown.onValueChanged.AddListener(OnMaterialSelected);
         acoustics = RoomAcousticsManager.Instance;
         systemFactory = acoustics.systemFactory;
+        ConfigurationChangedEvent?.Invoke();
         RefreshInfo();
     }
 
@@ -110,6 +113,7 @@ public class AcousticUIController : MonoBehaviour
             currentSpeakers = systemFactory.CreatedSpeakers;
             Debug.Log($"{currentSpeakers}:{currentSpeakers.Count}");
             RebuildSpeakerDropdown();
+            ConfigurationChangedEvent?.Invoke();
             acoustics.RunSimulation();
             RefreshInfo();
         });
@@ -137,6 +141,7 @@ public class AcousticUIController : MonoBehaviour
         if (currentSpeakerSelection == null) return;
 
         speakerLevelSlider.value = currentSpeakerSelection.baseLevel;
+        ConfigurationChangedEvent?.Invoke();
         // TODO: bring back when rotation slider implemented
 //        speakerRotationSlider.value = currentSpeakerSelection.transform.eulerAngles.y;
     }
@@ -145,6 +150,7 @@ public class AcousticUIController : MonoBehaviour
     {
         if (currentSpeakerSelection == null) return;
 
+        ConfigurationChangedEvent?.Invoke();
         currentSpeakerSelection.SetBaseLevel(newLevel.newValue);
         RefreshInfo();
     }
@@ -153,6 +159,7 @@ public class AcousticUIController : MonoBehaviour
     {
         if (currentSpeakerSelection == null) return;
 
+        ConfigurationChangedEvent?.Invoke();
         currentSpeakerSelection.SetRotation(Quaternion.Euler(0, rotY, 0));
         RefreshInfo();
     }
@@ -166,7 +173,8 @@ public class AcousticUIController : MonoBehaviour
             acoustics.listener.transform.position.y,
             listenerZ.value
         );
-
+        
+        ConfigurationChangedEvent?.Invoke();
         acoustics.RunSimulation();
         RefreshInfo();
     }
@@ -194,7 +202,7 @@ public class AcousticUIController : MonoBehaviour
             return;
 
         surface.material = mats[index];
-
+        ConfigurationChangedEvent?.Invoke();
         acoustics.RunSimulation();
         RefreshInfo();
     }
@@ -229,6 +237,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void Run(ClickEvent evt)
     {
+        ConfigurationChangedEvent?.Invoke();
         RefreshInfo();
         acoustics?.RunSimulation();
     }

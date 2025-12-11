@@ -36,6 +36,9 @@ public class RoomAcousticsManager : MonoBehaviour
     public int fftSize = 4096;
     public float sampleRate = 44100.0f;
 
+    private Speaker referenceSpeaker;
+    private IReadOnlyDictionary<string, Speaker> speakers;
+    
     private void Awake()
     {
         Instance = this;
@@ -44,6 +47,8 @@ public class RoomAcousticsManager : MonoBehaviour
     private void Start()
     {
         //systemFactory = GetComponent<SurroundSystemFactory>() ?? throw new ArgumentNullException("Surround System Factory not found.");
+        speakers = systemFactory.CreatedSpeakers;
+        AcousticUIController.ConfigurationChangedEvent += UpdateSpeakerConfigurationInfo;
     }
 
     /// <summary>
@@ -75,7 +80,6 @@ public class RoomAcousticsManager : MonoBehaviour
         var h = irGenerator.GenerateImpulseResponse(H);
 
         // 4. (opcjonalnie) wymuœ splot z sygna³em któregoœ g³oœnika
-        Speaker referenceSpeaker = speakers["L"];
         float[] referenceSignal = referenceSpeaker.testSignal;
         float[] outputSignal = null;
 
@@ -90,5 +94,14 @@ public class RoomAcousticsManager : MonoBehaviour
         }
 
         Debug.Log($"Simulation complete: paths={allPaths.Count}, IR length={h.Length}, system={speakers.Count} speakers");
+    }
+
+    /// <summary>
+    /// Method called when speaker configuration changes. Made just for fun and experiments with the Listener/Observer pattern.
+    /// </summary>
+    private void UpdateSpeakerConfigurationInfo()
+    {
+        speakers = systemFactory.CreatedSpeakers;
+        referenceSpeaker = speakers.First().Value;
     }
 }

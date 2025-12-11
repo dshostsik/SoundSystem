@@ -48,7 +48,7 @@ public class SurroundSystemFactory : MonoBehaviour
         {
             GameObject obj = Instantiate(
                 speakerPrefab,
-                config.defaultPositions[i],
+                transform.localPosition + config.defaultPositions[i],
                 Quaternion.Euler(config.defaultRotations.Length > i ? config.defaultRotations[i] : Vector3.zero)
             );
 
@@ -78,18 +78,19 @@ public class SurroundSystemFactory : MonoBehaviour
     public void Build51()
     {
         CreateSystem(config51);
-        RoomAcousticsManager.Instance.RunSimulation();
+        // Do we really need this here?
+        //RoomAcousticsManager.Instance.RunSimulation();
     }
 
     public void Build71()
     {
         CreateSystem(config71);
-        RoomAcousticsManager.Instance.RunSimulation();
+        //RoomAcousticsManager.Instance.RunSimulation();
     }
 
     public void Build91()
     {
         CreateSystem(config91);
-        RoomAcousticsManager.Instance.RunSimulation();
+        //RoomAcousticsManager.Instance.RunSimulation();
     }
 }

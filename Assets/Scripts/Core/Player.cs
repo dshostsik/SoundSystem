@@ -1,14 +1,16 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 #nullable enable
 
 public class Player : MonoBehaviour
 {
-    private int amoutOfSpeakers;
+    private int amountOfSpeakers;
     public event Action<int>? AmountOfSpeakersChanged;
     private static Camera cam;
+    private FreeCamera freeCamComponent;
     //private GameObject obj;
     private MovableObject? movableObj;
     public Vector3 Position => transform.position;
@@ -17,9 +19,10 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        amoutOfSpeakers = 5;
+        amountOfSpeakers = 5;
         PlayerInstanceManager.Player = this;
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        freeCamComponent = cam.GetComponent<FreeCamera>();
     }
 
     void Update()
@@ -66,8 +69,8 @@ public class Player : MonoBehaviour
     }
 
     void ChangeAmountOfSpeakers(int newAmount) {
-        if (amoutOfSpeakers == newAmount) return;
-        amoutOfSpeakers = newAmount;
+        if (amountOfSpeakers == newAmount) return;
+        amountOfSpeakers = newAmount;
         AmountOfSpeakersChanged?.Invoke(newAmount);
     }
 
@@ -75,5 +78,17 @@ public class Player : MonoBehaviour
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = cam.ScreenPointToRay(mousePos);
         return Physics.Raycast(ray, out hit);
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        Debug.LogError("Collision happened");
+        
+        if (other.gameObject.CompareTag("RoomParts"))
+        {
+            Debug.LogError("Collision with room part"); 
+            // Make camera stop
+            // freeCamComponent
+        }
     }
 }
