@@ -13,8 +13,8 @@ public class Player : MonoBehaviour
     private FreeCamera freeCamComponent;
     //private GameObject obj;
     private MovableObject? movableObj;
-    public Vector3 Position => transform.position;
-    public Vector3 Forward => transform.forward;
+    //public Vector3 Position => transform.position;
+    //public Vector3 Forward => transform.forward;
 
 
     void Start()

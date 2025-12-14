@@ -15,14 +15,14 @@ public class RayAcousticTracer
     /// <summary>
     /// G³ówna metoda: oblicza wszystkie œcie¿ki dla wszystkich g³oœników.
     /// </summary>
-    public List<AcousticPath> ComputePaths(Room room, IReadOnlyDictionary<string, Speaker> speakers, Player player)
+    public List<AcousticPath> ComputePaths(Room room, IReadOnlyDictionary<string, Speaker> speakers, Listener listener)
     {
         List<AcousticPath> paths = new List<AcousticPath>();
 
         foreach (var sp in speakers.Values)
         {
             // 1) Path direct
-            AcousticPath direct = ComputeDirectPath(sp, player);
+            AcousticPath direct = ComputeDirectPath(sp, listener);
             if (direct != null)
                 paths.Add(direct);
 
@@ -31,7 +31,7 @@ public class RayAcousticTracer
             {
                 if (!surf.enabled) continue;
 
-                var refl = ComputeFirstOrderPath(room, sp, player, surf);
+                var refl = ComputeFirstOrderPath(room, sp, listener, surf);
                 if (refl != null)
                     paths.Add(refl);
             }
@@ -43,10 +43,10 @@ public class RayAcousticTracer
     /// <summary>
     /// Tor bezpoœredni: prosta linia od g³oœnika do s³uchacza.
     /// </summary>
-    private AcousticPath ComputeDirectPath(Speaker sp, Player player)
+    private AcousticPath ComputeDirectPath(Speaker sp, Listener listener)
     {
         Vector3 p0 = sp.Position;
-        Vector3 p1 = player.Position;
+        Vector3 p1 = listener.Position;
         float d = Vector3.Distance(p0, p1);
 
         var path = new AcousticPath
@@ -68,10 +68,10 @@ public class RayAcousticTracer
     /// <summary>
     /// Odbicie pierwszego rzêdu:
     /// 1. obliczamy "mirror source"
-    /// 2. linia mirror ? player
+    /// 2. linia mirror ? listener
     /// 3. sprawdzamy przeciêcie z dan¹ powierzchni¹
     /// </summary>
-    private AcousticPath ComputeFirstOrderPath(Room room, Speaker sp, Player player, RoomSurface surf)
+    private AcousticPath ComputeFirstOrderPath(Room room, Speaker sp, Listener listener, RoomSurface surf)
     {
         if (!surf.enabled || surf.material == null)
             return null;
@@ -84,8 +84,8 @@ public class RayAcousticTracer
         if (!surf.TryGetReflectedSource(sp.Position, out Vector3 mirror))
             return null;
 
-        // 2. Ray mirror ? player
-        Vector3 dir = (player.Position - mirror).normalized;
+        // 2. Ray mirror ? listener
+        Vector3 dir = (listener.Position - mirror).normalized;
         Ray ray = new Ray(mirror, dir);
 
         // 3. Check intersection
@@ -100,7 +100,7 @@ public class RayAcousticTracer
 
         // 4. Compute total path
         float d1 = Vector3.Distance(sp.Position, hitPoint);
-        float d2 = Vector3.Distance(hitPoint, player.Position);
+        float d2 = Vector3.Distance(hitPoint, listener.Position);
         float d = d1 + d2;
 
         // 5. Absorption ? reflection coefficient per band
@@ -113,7 +113,7 @@ public class RayAcousticTracer
         {
             speaker = sp,
             startPoint = sp.Position,
-            endPoint = player.Position,
+            endPoint = listener.Position,
             reflectionPoint = hitPoint,
             distance = d,
             delay = d / speedOfSound,

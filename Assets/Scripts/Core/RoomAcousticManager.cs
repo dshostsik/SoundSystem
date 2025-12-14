@@ -21,7 +21,7 @@ public class RoomAcousticsManager : MonoBehaviour
 
     [Header("References")]
     public Room room;
-    public Player listener;
+    public Listener listener;
     public SurroundSystemFactory systemFactory;
     public AcousticVisualizer visualizer;
 
@@ -103,5 +103,14 @@ public class RoomAcousticsManager : MonoBehaviour
     {
         speakers = systemFactory.CreatedSpeakers;
         referenceSpeaker = speakers.First().Value;
+    }
+
+    public void Update()
+    {
+        // For testing purposes: run simulation on key press
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    RunSimulation();
+        //}
     }
 }
