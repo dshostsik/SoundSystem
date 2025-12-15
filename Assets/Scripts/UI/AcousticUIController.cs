@@ -21,7 +21,8 @@ public class AcousticUIController : MonoBehaviour
 {
     private UIDocument doc;
 
-    [Header("References")] public RoomAcousticsManager acoustics;
+    [Header("References")] 
+    public RoomAcousticsManager acoustics;
     public SurroundSystemFactory systemFactory;
 
     [Header("UI Elements – system selection")]
@@ -35,10 +36,21 @@ public class AcousticUIController : MonoBehaviour
     public Slider speakerLevelSlider;
     public Slider speakerRotationSlider;
 
-    [Header("UI Elements – listener controls")]
-    public Slider listenerX;
+    //[Header("UI Elements – listener controls")]
+    //public Slider listenerX;
 
-    public Slider listenerZ;
+    //public Slider listenerZ;
+
+    [Header("Audio Mixer (test)")]
+    [Tooltip("Klips testowy odtwarzany przez Play Test")]
+    public AudioClip testClip;
+    [Tooltip("dB odpowiadaj¹ce volume=1.0 (kalibracja). Domyœlnie 94 dB")]
+    public float dbForFullVolume = 94f;
+
+    // UI elements dla mixera (pobrane z UIDocument)
+    private Slider masterVolumeSlider;
+    private Button playTestButton;
+    private Label mixerInfoLabel;
 
     [Header("UI Elements – material controls")]
     public TMP_Dropdown surfaceDropdown;
@@ -166,26 +178,20 @@ public class AcousticUIController : MonoBehaviour
 
     // --- LISTENER -------------------------------------------------------------
 
-    private void OnListenerMove(float _)
-    {
-        acoustics.listener.transform.position = new Vector3(
-            listenerX.value,
-            acoustics.listener.transform.position.y,
-            listenerZ.value
-        );
+    //private void OnListenerMove(float _)
+    //{
+    //    acoustics.listener.transform.position = new Vector3(
+    //        listenerX.value,
+    //        acoustics.listener.transform.position.y,
+    //        listenerZ.value
+    //    );
         
-        ConfigurationChangedEvent?.Invoke();
-        acoustics.RunSimulation();
-        RefreshInfo();
-    }
+    //    ConfigurationChangedEvent?.Invoke();
+    //    acoustics.RunSimulation();
+    //    RefreshInfo();
+    //}
 
     // --- MATERIALS ------------------------------------------------------------
-
-    private void OnSurfaceSelected(int index)
-    {
-        // nic nie robimy — czekamy na wybór materia³u
-    }
-
     private void OnMaterialSelected(int index)
     {
         var room = acoustics.room;
@@ -205,6 +211,58 @@ public class AcousticUIController : MonoBehaviour
         ConfigurationChangedEvent?.Invoke();
         acoustics.RunSimulation();
         RefreshInfo();
+    }
+
+    // --- AUDIO MIXER CALLBACKS -----------------------------------------------
+
+    private void OnMasterVolumeChanged(ChangeEvent<float> evt)
+    {
+        float v = Mathf.Clamp01(evt.newValue);
+        AudioListener.volume = v;
+        RefreshInfo();
+    }
+
+    private void OnPlayTestClicked(ClickEvent evt)
+    {
+        if (testClip == null)
+        {
+            Debug.LogWarning("AcousticUIController: testClip is not assigned.");
+            return;
+        }
+
+        var ram = RoomAcousticsManager.Instance;
+        if (ram == null || ram.listener == null)
+        {
+            Debug.LogWarning("AcousticUIController: RoomAcousticsManager or listener missing.");
+            return;
+        }
+
+        float db = ram.GetLastOverallDb();
+        float linear = DbToLinear(db, dbForFullVolume);
+        float finalVolume = Mathf.Clamp01(linear * AudioListener.volume);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
+        }
+        else
+        {
+            var go = new GameObject("AcousticUI_TestSource");
+            go.transform.position = ram.listener.transform.position;
+            var src = go.AddComponent<AudioSource>();
+            src.clip = testClip;
+            src.spatialBlend = 1f;
+            src.volume = finalVolume;
+            src.Play();
+            Destroy(go, testClip.length + 0.1f);
+        }
+
+        RefreshInfo();
+    }
+
+    private static float DbToLinear(float db, float dbRef)
+    {
+        return Mathf.Pow(10f, (db - dbRef) / 20f);
     }
 
     // --- INFO ----------------------------------------------------------------
