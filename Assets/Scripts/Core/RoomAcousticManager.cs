@@ -52,7 +52,6 @@ public class RoomAcousticsManager : MonoBehaviour
 
     private void Start()
     {
-        //systemFactory = GetComponent<SurroundSystemFactory>() ?? throw new ArgumentNullException("Surround System Factory not found.");
         speakers = systemFactory.CreatedSpeakers;
         AcousticUIController.ConfigurationChangedEvent += UpdateSpeakerConfigurationInfo;
     }

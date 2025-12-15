@@ -47,17 +47,18 @@ public class AcousticUIController : MonoBehaviour
     [Tooltip("dB odpowiadaj¹ce volume=1.0 (kalibracja). Domyœlnie 94 dB")]
     public float dbForFullVolume = 94f;
 
-    // UI elements dla mixera (pobrane z UIDocument)
-    private Slider masterVolumeSlider;
     private Button playTestButton;
-    private Label mixerInfoLabel;
+
+    //// UI elements dla mixera (pobrane z UIDocument)
+    //private Slider masterVolumeSlider;
+    //private Label mixerInfoLabel;
 
     [Header("UI Elements – material controls")]
     public TMP_Dropdown surfaceDropdown;
-
     public TMP_Dropdown materialDropdown;
 
-    [Header("UI Elements – debug")] public Label infoText;
+    [Header("UI Elements – debug")]
+    public Label infoText;
 
     private IReadOnlyDictionary<string, Speaker> currentSpeakers;
     private Speaker currentSpeakerSelection;
@@ -76,10 +77,14 @@ public class AcousticUIController : MonoBehaviour
         infoText = root.Q<Label>("info_text");
         speakerDropdown = root.Q<DropdownField>("speaker_dropdown");
 
+
+        playTestButton = root.Q<Button>("play_test");
+
         startButton.RegisterCallback<ClickEvent>(Run);
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);
         speakerDropdown.RegisterCallback<ChangeEvent<string>>(OnSpeakerSelected);
+        playTestButton.RegisterCallback<ClickEvent>(OnPlayTestClicked);
     }
 
     private void Start()
@@ -99,6 +104,9 @@ public class AcousticUIController : MonoBehaviour
         systemFactory = acoustics.systemFactory;
         ConfigurationChangedEvent?.Invoke();
         RefreshInfo();
+
+        //if (playTestButton != null)
+        //    playTestButton.SetEnabled(testClip != null);
     }
 
     // --- SYSTEM SELECTION ------------------------------------------------------
@@ -269,6 +277,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void RefreshInfo()
     {
+        if (systemFactory == null) return;
         var speakers = systemFactory.CreatedSpeakers;
 
         string msg = $"Speakers: {speakers.Count}\n";
