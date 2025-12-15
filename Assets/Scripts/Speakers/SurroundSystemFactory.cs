@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Visualization;
 
 /// <summary>
 /// Tworzy system g³oœników na podstawie konfiguracji SurroundSystemConfig.
@@ -15,6 +17,7 @@ public class SurroundSystemFactory : MonoBehaviour
     [Header("Prefabs")]
     [Tooltip("Prefab g³oœnika. Musi zawieraæ komponent Speaker.")]
     public GameObject speakerPrefab;
+    public GameObject wavePrefab;
 
     [Header("Available system configs")]
     public SurroundSystemConfig config51;
@@ -52,6 +55,28 @@ public class SurroundSystemFactory : MonoBehaviour
                 Quaternion.Euler(config.defaultRotations.Length > i ? config.defaultRotations[i] : Vector3.zero)
             );
 
+            GameObject wave = Instantiate(wavePrefab,
+                obj.transform.position,
+                Quaternion.LookRotation(obj.transform.forward));
+            
+            // Setup wave material for rendering
+            wave.transform.parent = obj.transform;
+            wave.transform.rotation = Quaternion.Euler(-90.0f, obj.transform.rotation.y, obj.transform.rotation.z);
+            
+            BoxCollider bc = obj.GetComponent<BoxCollider>();
+
+            Vector3 worldCenter = obj.transform.TransformPoint(bc.center);
+            Vector3 frontPos = worldCenter + obj.transform.forward * ((bc.size.z * 0.5f) * obj.transform.lossyScale.z);
+            wave.transform.position = frontPos;
+            
+            Renderer waveRenderer = wave.GetComponent<Renderer>();
+
+            WaveVisualizer waveVisualizer = WaveVisualizerFactory.Visualizer;
+            waveVisualizer.Renderer = waveRenderer;
+            // waveVisualizer.Amplitude = 0;
+            // waveVisualizer.Frequency = 0;
+            // waveVisualizer.Speed = 0;
+            
             //obj.tag = "Movable";
             //obj.AddComponent<MovableObject>();
 

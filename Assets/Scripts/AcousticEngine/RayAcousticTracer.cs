@@ -73,7 +73,7 @@ public class RayAcousticTracer
     /// </summary>
     private AcousticPath ComputeFirstOrderPath(Room room, Speaker sp, Listener listener, RoomSurface surf)
     {
-        if (!surf.enabled || surf.material == null)
+        if (!surf.enabled || surf.material.Equals(null))
             return null;
 
         // plane of surface

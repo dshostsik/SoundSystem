@@ -329,7 +329,7 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c2452fae-536a-4160-8caf-dbccd2d410cd"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 //using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Visualization;
 
 /// <summary>
 /// UI Controller — pe³ni rolê ³¹cznika miêdzy interfejsem u¿ytkownika
@@ -251,7 +252,13 @@ public class AcousticUIController : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
+            WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
+            visualizer.Renderer.gameObject.SetActive(true);
+            visualizer.Frequency = ram.sampleRate;
+            visualizer.Speed = ram.speedOfSound;
+            visualizer.Amplitude = 0.0025f;
             AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
+            visualizer.Renderer.gameObject.SetActive(false);
         }
         else
         {
@@ -261,7 +268,16 @@ public class AcousticUIController : MonoBehaviour
             src.clip = testClip;
             src.spatialBlend = 1f;
             src.volume = finalVolume;
+            
+            WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
+            visualizer.Renderer.gameObject.SetActive(true);
+            visualizer.Frequency = ram.sampleRate;
+            visualizer.Speed = ram.speedOfSound;
+            visualizer.Amplitude = 0.0025f;
             src.Play();
+            
+            visualizer.Renderer.gameObject.SetActive(false);
+            
             Destroy(go, testClip.length + 0.1f);
         }
 

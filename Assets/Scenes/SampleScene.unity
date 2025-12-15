@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AcousticUIController
   acoustics: {fileID: 1436511949}
   systemFactory: {fileID: 1699882150}
-  testClip: {fileID: 0}
+  testClip: {fileID: 8300000, guid: e496b42f9fb230242a6507e5154b91c4, type: 3}
   dbForFullVolume: 94
   surfaceDropdown: {fileID: 0}
   materialDropdown: {fileID: 0}
@@ -1474,6 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurroundSystemFactory
   speakerPrefab: {fileID: 7980201099532493235, guid: c365ab98c189ba44dadd59576f689438, type: 3}
+  wavePrefab: {fileID: 4888968439056834594, guid: 71c23e9033af8704f9e9ade847e5f7ea, type: 3}
   config51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
   config71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
   config91: {fileID: 11400000, guid: b10286a2ad0f97543b9a1e336ea741ab, type: 2}
@@ -1969,6 +1970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeakerContainer
   speakerPrefab: {fileID: 7980201099532493235, guid: c365ab98c189ba44dadd59576f689438, type: 3}
+  wavePrefab: {fileID: 919132149155446097, guid: e275666c683b5eb4384d4bc58148ffff, type: 3}
   system51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
   system71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
   system91: {fileID: 11400000, guid: b10286a2ad0f97543b9a1e336ea741ab, type: 2}

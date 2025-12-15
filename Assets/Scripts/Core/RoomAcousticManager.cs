@@ -42,6 +42,8 @@ public class RoomAcousticsManager : MonoBehaviour
     private Dictionary<string, float> lastPerSpeakerDb = new Dictionary<string, float>(StringComparer.Ordinal);
     private float lastOverallDb;
 
+    public float OverallDb => lastOverallDb;
+    
     // referencyjne ciœnienie (Pa) do konwersji do dB (20 µPa)
     private const float ReferencePressure = 20e-6f;
 
@@ -92,7 +94,7 @@ public class RoomAcousticsManager : MonoBehaviour
             outputSignal = convolver.Convolve(referenceSignal, h);
 
         // 5. Wizualizacja
-        if (visualizer != null)
+        if (!visualizer.Equals(null))
         {
             visualizer.VisualizeImpulseResponse(h);
             visualizer.VisualizeSoundField(allPaths);
