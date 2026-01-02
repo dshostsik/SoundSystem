@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
-//using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Visualization;
 
@@ -29,6 +28,7 @@ public class AcousticUIController : MonoBehaviour
     [Header("UI Elements – system selection")]
     public DropdownField systemDropdown;
 
+    // Deprecate this. We don't need this anymore i guess
     public Button startButton;
 
     [Header("UI Elements – speaker controls")]
@@ -45,9 +45,10 @@ public class AcousticUIController : MonoBehaviour
     [Header("Audio Mixer (test)")]
     [Tooltip("Klips testowy odtwarzany przez Play Test")]
     public AudioClip testClip;
-    [Tooltip("dB odpowiadaj¹ce volume=1.0 (kalibracja). Domyœlnie 94 dB")]
+    [Tooltip("dB odpowiadaj±ce volume=1.0 (kalibracja). Domy¶lnie 94 dB")]
     public float dbForFullVolume = 94f;
 
+    private Button selectSongButton;
     private Button playTestButton;
 
     //// UI elements dla mixera (pobrane z UIDocument)
@@ -66,6 +67,11 @@ public class AcousticUIController : MonoBehaviour
 
     public static event Action ConfigurationChangedEvent;
     
+    /// <summary>
+    /// Default path to music folder. Maybe users keep their music there
+    /// </summary>
+    private string pathToMusicFolder;
+    
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -78,15 +84,19 @@ public class AcousticUIController : MonoBehaviour
         infoText = root.Q<Label>("info_text");
         speakerDropdown = root.Q<DropdownField>("speaker_dropdown");
 
-
+        selectSongButton = root.Q<Button>("choose_song");
         playTestButton = root.Q<Button>("play_test");
 
         startButton.RegisterCallback<ClickEvent>(Run);
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);
         speakerDropdown.RegisterCallback<ChangeEvent<string>>(OnSpeakerSelected);
+        selectSongButton.RegisterCallback<ClickEvent>(OnSelectSongClicked);
         playTestButton.RegisterCallback<ClickEvent>(OnPlayTestClicked);
+        
+        pathToMusicFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
     }
+
 
     private void Start()
     {
@@ -104,12 +114,21 @@ public class AcousticUIController : MonoBehaviour
         acoustics = RoomAcousticsManager.Instance;
         systemFactory = acoustics.systemFactory;
         ConfigurationChangedEvent?.Invoke();
+        if (!playTestButton.Equals(null))
+            playTestButton.SetEnabled(!testClip.Equals(null));
         RefreshInfo();
 
-        //if (playTestButton != null)
-        //    playTestButton.SetEnabled(testClip != null);
     }
 
+    /// <summary>
+    /// Select the song from file explorer
+    /// </summary>
+    /// <param name="evt">clicked trigger</param>
+    private void OnSelectSongClicked(ClickEvent evt)
+    {
+        
+    }
+    
     // --- SYSTEM SELECTION ------------------------------------------------------
 
     private void OnSystemSelected(ChangeEvent<string> selectedConfiguration)
@@ -250,15 +269,15 @@ public class AcousticUIController : MonoBehaviour
         float linear = DbToLinear(db, dbForFullVolume);
         float finalVolume = Mathf.Clamp01(linear * AudioListener.volume);
 
+        WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
+        
+        visualizer.Frequency = ram.sampleRate;
+        visualizer.Speed = ram.speedOfSound;
+        visualizer.Amplitude = 0.0025f;
+
         if (AudioManager.Instance != null)
         {
-            WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
-            visualizer.Renderer.gameObject.SetActive(true);
-            visualizer.Frequency = ram.sampleRate;
-            visualizer.Speed = ram.speedOfSound;
-            visualizer.Amplitude = 0.0025f;
             AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
-            visualizer.Renderer.gameObject.SetActive(false);
         }
         else
         {
@@ -269,14 +288,8 @@ public class AcousticUIController : MonoBehaviour
             src.spatialBlend = 1f;
             src.volume = finalVolume;
             
-            WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
-            visualizer.Renderer.gameObject.SetActive(true);
-            visualizer.Frequency = ram.sampleRate;
-            visualizer.Speed = ram.speedOfSound;
-            visualizer.Amplitude = 0.0025f;
             src.Play();
             
-            visualizer.Renderer.gameObject.SetActive(false);
             
             Destroy(go, testClip.length + 0.1f);
         }

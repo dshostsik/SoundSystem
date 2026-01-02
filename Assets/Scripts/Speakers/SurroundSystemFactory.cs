@@ -39,8 +39,8 @@ public class SurroundSystemFactory : MonoBehaviour
     
     public void CreateSystem(SurroundSystemConfig config)
     {
-        // Idk why it returned the list of speakers. we did not use it at all
-        // so i decided to make it void
+        // IDK why it returned the list of speakers. we did not use it at all,
+        // so I decided to make it void
         ClearExistingSpeakers();
 
         // TODO delete when complete
@@ -71,8 +71,7 @@ public class SurroundSystemFactory : MonoBehaviour
             
             Renderer waveRenderer = wave.GetComponent<Renderer>();
 
-            WaveVisualizer waveVisualizer = WaveVisualizerFactory.Visualizer;
-            waveVisualizer.Renderer = waveRenderer;
+            WaveVisualizerFactory.Visualizer.Renderer = waveRenderer;
             // waveVisualizer.Amplitude = 0;
             // waveVisualizer.Frequency = 0;
             // waveVisualizer.Speed = 0;

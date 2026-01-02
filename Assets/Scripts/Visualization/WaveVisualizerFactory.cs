@@ -2,14 +2,14 @@
 {
     public static class WaveVisualizerFactory
     {
-        private static WaveVisualizer waveVisualizer;
+        private static WaveVisualizer _waveVisualizer;
 
         public static WaveVisualizer Visualizer
         {
             get
             {
-                waveVisualizer ??= new WaveVisualizer();
-                return waveVisualizer;
+                _waveVisualizer ??= new WaveVisualizer();
+                return _waveVisualizer;
             }
         }
     }

@@ -405,7 +405,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -1812,9 +1812,10 @@ GameObject:
   - component: {fileID: 2075166533}
   - component: {fileID: 2075166532}
   - component: {fileID: 2075166531}
-  - component: {fileID: 2075166530}
   - component: {fileID: 2075166529}
   - component: {fileID: 2075166528}
+  - component: {fileID: 2075166534}
+  - component: {fileID: 2075166535}
   m_Layer: 0
   m_Name: Listener
   m_TagString: Movable
@@ -1846,29 +1847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc83b67a354591499e8003628984935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Listener
---- !u!136 &2075166530
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075166527}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2075166531
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1894,7 +1872,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e718abd8b46800f458f42bc916dfe0cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1924,7 +1902,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075166527}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 1326545818037767491, guid: 6b7cf5a72e887d24892578995318eba7, type: 3}
 --- !u!4 &2075166533
 Transform:
   m_ObjectHideFlags: 0
@@ -1933,13 +1911,44 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075166527}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 1.38, z: -3.304}
+  m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.02, y: 0.7762637, z: -2.700263}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!81 &2075166534
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075166527}
+  m_Enabled: 1
+--- !u!136 &2075166535
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075166527}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3220657
+  m_Height: 1.7137259
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.85061}
 --- !u!1 &2142430105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,7 +1979,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeakerContainer
   speakerPrefab: {fileID: 7980201099532493235, guid: c365ab98c189ba44dadd59576f689438, type: 3}
-  wavePrefab: {fileID: 919132149155446097, guid: e275666c683b5eb4384d4bc58148ffff, type: 3}
   system51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
   system71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
   system91: {fileID: 11400000, guid: b10286a2ad0f97543b9a1e336ea741ab, type: 2}
