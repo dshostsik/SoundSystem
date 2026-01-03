@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -29,10 +30,7 @@ public class AcousticUIController : MonoBehaviour
 
     [Header("UI Elements – system selection")]
     public DropdownField systemDropdown;
-
-    // Deprecate this. We don't need this anymore i guess
-    public Button startButton;
-
+    
     [Header("UI Elements – speaker controls")]
     public DropdownField speakerDropdown;
 
@@ -110,11 +108,15 @@ public class AcousticUIController : MonoBehaviour
 
         // "Use 'from end' expression" - Resharper
         extension = res[^1];
-        
+
+        StartCoroutine(LoadAudio());
+    }
+
+    private IEnumerator LoadAudio()
+    {
         using UnityWebRequest www =
             UnityWebRequestMultimedia.GetAudioClip(actualPath, GetApplicableAudioExtension(extension));
-        //yield return 
-        www.SendWebRequest();
+        yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -123,11 +125,7 @@ public class AcousticUIController : MonoBehaviour
         else
         {
             testClip = DownloadHandlerAudioClip.GetContent(www);
-                
-            // audioSrc.clip = testClip;
-            // audioSrc.Play();
         }
-
     }
 
     private AudioType GetApplicableAudioExtension(string extensionToProceed)
@@ -149,8 +147,7 @@ public class AcousticUIController : MonoBehaviour
         doc = GetComponent<UIDocument>();
 
         var root = doc.rootVisualElement;
-
-        startButton = root.Q<Button>("start_simulation");
+        
         speakerLevelSlider = root.Q<Slider>("sound_level");
         systemDropdown = root.Q<DropdownField>("system_dropdown");
         infoText = root.Q<Label>("info_text");
@@ -158,8 +155,8 @@ public class AcousticUIController : MonoBehaviour
 
         selectSongButton = root.Q<Button>("choose_song");
         playTestButton = root.Q<Button>("play_test");
-
-        startButton.RegisterCallback<ClickEvent>(Run);
+        
+        
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);
         speakerDropdown.RegisterCallback<ChangeEvent<string>>(OnSpeakerSelected);
@@ -310,6 +307,12 @@ public class AcousticUIController : MonoBehaviour
             return;
         }
 
+        if (testClip.loadState == AudioDataLoadState.Loading || !testClip.loadState.Equals(AudioDataLoadState.Loaded))
+        {
+            Debug.LogWarning("AcousticUIController: testClip is not loaded yet.");
+            return;
+        }
+        
         var ram = RoomAcousticsManager.Instance;
         if (ram.Equals(null) || ram.listener.Equals(null))
         {
@@ -377,18 +380,10 @@ public class AcousticUIController : MonoBehaviour
 
     public void OnDisable()
     {
-        startButton.UnregisterCallback<ClickEvent>(Run);
         speakerLevelSlider.UnregisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.UnregisterValueChangedCallback(OnSystemSelected);
         selectSongButton.UnregisterCallback<ClickEvent>(OnSelectSongClicked);
         playTestButton.UnregisterCallback<ClickEvent>(OnPlayTestClicked);
         speakerDropdown.UnregisterValueChangedCallback(OnSpeakerSelected);
-    }
-
-    private void Run(ClickEvent evt)
-    {
-        ConfigurationChangedEvent?.Invoke();
-        RefreshInfo();
-        acoustics?.RunSimulation();
     }
 }

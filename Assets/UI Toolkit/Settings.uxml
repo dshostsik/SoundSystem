@@ -1,7 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1;">
         <ui:Label text="Settings" name="main_menu" />
-        <ui:Button text="Begin" name="start_simulation" enabled="false" />
         <ui:Slider label="Level" value="42" high-value="100" name="sound_level" />
         <ui:DropdownField label="Choose system" name="system_dropdown" choices="5_1,7_1,9_1" />
         <ui:DropdownField label="Edit speaker" name="speaker_dropdown" />
