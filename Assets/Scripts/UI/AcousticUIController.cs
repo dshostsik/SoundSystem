@@ -87,6 +87,9 @@ public class AcousticUIController : MonoBehaviour
 
     private string extension;
     private AudioSource audioSrc;
+    private GameObject go;
+    private AudioSource src;
+
     /// <summary>
     /// Select the song from file explorer
     /// </summary>
@@ -172,7 +175,11 @@ public class AcousticUIController : MonoBehaviour
         acoustics = RoomAcousticsManager.Instance;
         systemFactory = acoustics.systemFactory;
         ConfigurationChangedEvent?.Invoke();
-
+        
+        go = new GameObject("AcousticUI_TestSource");
+        src = go.AddComponent<AudioSource>();
+        
+        
         RefreshInfo();
     }
 
@@ -330,24 +337,30 @@ public class AcousticUIController : MonoBehaviour
         visualizer.Speed = ram.speedOfSound;
         visualizer.Amplitude = 0.0025f;
 
-        if (!AudioManager.Instance.Equals(null))
-        {
-            AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
-        }
-        else
-        {
-            var go = new GameObject("AcousticUI_TestSource");
+        // if (!AudioManager.Instance.Equals(null))
+        // {
+        //     if(AudioManager.Instance.) AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
+        // }
+        // else
+        // {
+            
             go.transform.position = ram.listener.transform.position;
-            var src = go.AddComponent<AudioSource>();
             src.clip = testClip;
             src.spatialBlend = 1f;
             src.volume = finalVolume;
 
-            if (!src.isPlaying) src.Play();
+            
+            if (src.isPlaying)
+            {
+                src.Stop();
+                src.clip = testClip;
+            }
+
+            src.Play();
 
 
             Destroy(go, testClip.length + 0.1f);
-        }
+        //}
 
         RefreshInfo();
     }
