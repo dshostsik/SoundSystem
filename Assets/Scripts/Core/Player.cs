@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     private int amountOfSpeakers;
     public event Action<int>? AmountOfSpeakersChanged;
-    private static Camera cam;
+    private static Camera? _cam;
     private FreeCamera freeCamComponent;
     //private GameObject obj;
     private MovableObject? movableObj;
@@ -21,8 +21,8 @@ public class Player : MonoBehaviour
     {
         amountOfSpeakers = 5;
         PlayerInstanceManager.Player = this;
-        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        freeCamComponent = cam.GetComponent<FreeCamera>();
+        _cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        freeCamComponent = _cam.GetComponent<FreeCamera>();
     }
 
     void Update()
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
 
     public static bool CameraToMouseRay(out RaycastHit hit) {
         Vector2 mousePos = Mouse.current.position.ReadValue();
-        Ray ray = cam.ScreenPointToRay(mousePos);
+        Ray ray = _cam.ScreenPointToRay(mousePos);
         return Physics.Raycast(ray, out hit);
     }
 

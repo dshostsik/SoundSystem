@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using SFB;
+using UnityEngine.Networking;
 using Visualization;
 
 /// <summary>
@@ -21,8 +24,7 @@ public class AcousticUIController : MonoBehaviour
 {
     private UIDocument doc;
 
-    [Header("References")] 
-    public RoomAcousticsManager acoustics;
+    [Header("References")] public RoomAcousticsManager acoustics;
     public SurroundSystemFactory systemFactory;
 
     [Header("UI Elements – system selection")]
@@ -42,9 +44,9 @@ public class AcousticUIController : MonoBehaviour
 
     //public Slider listenerZ;
 
-    [Header("Audio Mixer (test)")]
-    [Tooltip("Klips testowy odtwarzany przez Play Test")]
+    [Header("Audio Mixer (test)")] [Tooltip("Klips testowy odtwarzany przez Play Test")]
     public AudioClip testClip;
+
     [Tooltip("dB odpowiadaj±ce volume=1.0 (kalibracja). Domy¶lnie 94 dB")]
     public float dbForFullVolume = 94f;
 
@@ -57,21 +59,91 @@ public class AcousticUIController : MonoBehaviour
 
     [Header("UI Elements – material controls")]
     public TMP_Dropdown surfaceDropdown;
+
     public TMP_Dropdown materialDropdown;
 
-    [Header("UI Elements – debug")]
-    public Label infoText;
+    [Header("UI Elements – debug")] public Label infoText;
 
     private IReadOnlyDictionary<string, Speaker> currentSpeakers;
     private Speaker currentSpeakerSelection;
 
     public static event Action ConfigurationChangedEvent;
-    
+
     /// <summary>
     /// Default path to music folder. Maybe users keep their music there
     /// </summary>
     private string pathToMusicFolder;
-    
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    // web
+        DllImport("__Internal")
+        // Never mind, actually. we still do basic app, not web
+    private void OnSelectSongClicked(ClickEvent evt) {
+        throw new System.PlatformNotSupportedException("Web pages are not supported");
+    }
+#else
+    // standalone file explorer (Windows - explorer; Mac - finder; Linux - idk tbh) or editor itself
+    private static readonly ExtensionFilter[] Filters = { new(".mp3"), new(".aif"), new(".wav"), new(".ogg") };
+    private string actualPath;
+    private StringBuilder builder = new StringBuilder();
+
+    private string extension;
+    private AudioSource audioSrc;
+    /// <summary>
+    /// Select the song from file explorer
+    /// </summary>
+    /// <param name="evt">clicked trigger</param>
+    private void OnSelectSongClicked(ClickEvent evt)
+    {
+        string[] paths = StandaloneFileBrowser.OpenFilePanel("Select a song:", pathToMusicFolder, Filters, false);
+        if (paths.Length == 0) return;
+        builder.Clear();
+        actualPath = builder
+            .Append("file://")
+            .Append(paths[0])
+            .ToString();
+
+
+        string requestedAudio = string.Format(actualPath, "{0}");
+
+        string[] res = requestedAudio.Split(".");
+
+        // "Use 'from end' expression" - Resharper
+        extension = res[^1];
+        
+        using UnityWebRequest www =
+            UnityWebRequestMultimedia.GetAudioClip(actualPath, GetApplicableAudioExtension(extension));
+        //yield return 
+        www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            testClip = DownloadHandlerAudioClip.GetContent(www);
+                
+            // audioSrc.clip = testClip;
+            // audioSrc.Play();
+        }
+
+    }
+
+    private AudioType GetApplicableAudioExtension(string extensionToProceed)
+    {
+        switch (extensionToProceed.ToLower())
+        {
+            case "wav": return AudioType.WAV;
+            case "mp3": return AudioType.MPEG;
+            case "ogg": return AudioType.OGGVORBIS;
+            case "aif":
+            case "aiff": return AudioType.AIFF;
+            default: return AudioType.UNKNOWN;
+        }
+    }
+#endif
+
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -93,42 +165,20 @@ public class AcousticUIController : MonoBehaviour
         speakerDropdown.RegisterCallback<ChangeEvent<string>>(OnSpeakerSelected);
         selectSongButton.RegisterCallback<ClickEvent>(OnSelectSongClicked);
         playTestButton.RegisterCallback<ClickEvent>(OnPlayTestClicked);
-        
+
         pathToMusicFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
     }
 
 
     private void Start()
     {
-        //systemDropdown.onValueChanged.AddListener(OnSystemSelected);
-        //speakerDropdown.onValueChanged.AddListener(OnSpeakerSelected);
-
-        // speakerLevelSlider.onValueChanged.AddListener(OnSpeakerLevelChanged);
-        // speakerRotationSlider.onValueChanged.AddListener(OnSpeakerRotationChanged);
-        //
-        // listenerX.onValueChanged.AddListener(OnListenerMove);
-        // listenerZ.onValueChanged.AddListener(OnListenerMove);
-
-        //surfaceDropdown.onValueChanged.AddListener(OnSurfaceSelected);
-        //materialDropdown.onValueChanged.AddListener(OnMaterialSelected);
         acoustics = RoomAcousticsManager.Instance;
         systemFactory = acoustics.systemFactory;
         ConfigurationChangedEvent?.Invoke();
-        if (!playTestButton.Equals(null))
-            playTestButton.SetEnabled(!testClip.Equals(null));
+
         RefreshInfo();
-
     }
 
-    /// <summary>
-    /// Select the song from file explorer
-    /// </summary>
-    /// <param name="evt">clicked trigger</param>
-    private void OnSelectSongClicked(ClickEvent evt)
-    {
-        
-    }
-    
     // --- SYSTEM SELECTION ------------------------------------------------------
 
     private void OnSystemSelected(ChangeEvent<string> selectedConfiguration)
@@ -152,6 +202,8 @@ public class AcousticUIController : MonoBehaviour
 
             currentSpeakers = systemFactory.CreatedSpeakers;
             Debug.Log($"{currentSpeakers}:{currentSpeakers.Count}");
+            selectSongButton.SetEnabled(true);
+            playTestButton.SetEnabled(true);
             RebuildSpeakerDropdown();
             ConfigurationChangedEvent?.Invoke();
             acoustics.RunSimulation();
@@ -213,7 +265,7 @@ public class AcousticUIController : MonoBehaviour
     //        acoustics.listener.transform.position.y,
     //        listenerZ.value
     //    );
-        
+
     //    ConfigurationChangedEvent?.Invoke();
     //    acoustics.RunSimulation();
     //    RefreshInfo();
@@ -252,14 +304,14 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnPlayTestClicked(ClickEvent evt)
     {
-        if (testClip == null)
+        if (testClip.Equals(null))
         {
             Debug.LogWarning("AcousticUIController: testClip is not assigned.");
             return;
         }
 
         var ram = RoomAcousticsManager.Instance;
-        if (ram == null || ram.listener == null)
+        if (ram.Equals(null) || ram.listener.Equals(null))
         {
             Debug.LogWarning("AcousticUIController: RoomAcousticsManager or listener missing.");
             return;
@@ -270,12 +322,12 @@ public class AcousticUIController : MonoBehaviour
         float finalVolume = Mathf.Clamp01(linear * AudioListener.volume);
 
         WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
-        
+
         visualizer.Frequency = ram.sampleRate;
         visualizer.Speed = ram.speedOfSound;
         visualizer.Amplitude = 0.0025f;
 
-        if (AudioManager.Instance != null)
+        if (!AudioManager.Instance.Equals(null))
         {
             AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
         }
@@ -287,10 +339,10 @@ public class AcousticUIController : MonoBehaviour
             src.clip = testClip;
             src.spatialBlend = 1f;
             src.volume = finalVolume;
-            
-            src.Play();
-            
-            
+
+            if (!src.isPlaying) src.Play();
+
+
             Destroy(go, testClip.length + 0.1f);
         }
 
@@ -328,6 +380,8 @@ public class AcousticUIController : MonoBehaviour
         startButton.UnregisterCallback<ClickEvent>(Run);
         speakerLevelSlider.UnregisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.UnregisterValueChangedCallback(OnSystemSelected);
+        selectSongButton.UnregisterCallback<ClickEvent>(OnSelectSongClicked);
+        playTestButton.UnregisterCallback<ClickEvent>(OnPlayTestClicked);
         speakerDropdown.UnregisterValueChangedCallback(OnSpeakerSelected);
     }
 

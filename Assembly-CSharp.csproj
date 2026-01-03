@@ -46,15 +46,23 @@
     <Analyzer Include="D:\Unity\6000.2.13f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\StandaloneFileBrowser\StandaloneFileBrowserWindows.cs" />
     <Compile Include="Assets\Scripts\Speakers\SurroundSystemConfig.cs" />
     <Compile Include="Assets\Scripts\AcousticEngine\FourierAnalyzer.cs" />
     <Compile Include="Assets\MovesAndLooks.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\StandaloneFileBrowser.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\Sample\CanvasSampleSaveFileText.cs" />
     <Compile Include="Assets\Scripts\AcousticEngine\RayAcousticTracer.cs" />
     <Compile Include="Assets\Scripts\Visualization\AcousticVisualizer.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\StandaloneFileBrowserEditor.cs" />
     <Compile Include="Assets\Scripts\Speakers\Speaker.cs" />
     <Compile Include="Assets\Scripts\Acoustic\RoomSurface.cs" />
     <Compile Include="Assets\Scripts\PlayerInstanceManager.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\IStandaloneFileBrowser.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\StandaloneFileBrowserLinux.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\Sample\CanvasSampleOpenFileText.cs" />
     <Compile Include="Assets\Scripts\Directivity.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\StandaloneFileBrowserMac.cs" />
     <Compile Include="Assets\Scripts\SpeakerContainer.cs" />
     <Compile Include="Assets\Scripts\Core\Player.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
@@ -63,12 +71,16 @@
     <Compile Include="Assets\Scripts\Speakers\MovableObject.cs" />
     <Compile Include="Assets\Scripts\Visualization\WaveVisualizer.cs" />
     <Compile Include="Assets\Scripts\AcousticEngine\ImpulseResponseGenerator.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\Sample\CanvasSampleOpenFileTextMultiple.cs" />
     <Compile Include="Assets\Scripts\Core\AcousticPath.cs" />
     <Compile Include="Assets\Scripts\UI\AcousticUIController.cs" />
     <Compile Include="Assets\Scripts\AcousticEngine\AudioConvolver.cs" />
     <Compile Include="Assets\Scripts\Visualization\WaveVisualizerFactory.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\Sample\CanvasSampleSaveFileImage.cs" />
     <Compile Include="Assets\Scripts\Speakers\SurroundSystemFactory.cs" />
     <Compile Include="Assets\Scripts\Acoustic\Room.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\Sample\BasicSample.cs" />
+    <Compile Include="Assets\StandaloneFileBrowser\Sample\CanvasSampleOpenFileImage.cs" />
     <Compile Include="Assets\Scripts\Acoustic\AcousticMaterial.cs" />
     <Compile Include="Assets\Scripts\Core\RoomAcousticManager.cs" />
     <None Include="Assets\UI Toolkit\Settings.uxml" />
@@ -444,6 +456,9 @@
     <Reference Include="nunit.framework">
       <HintPath>D:\DZ_PL\TechnologieSymulacji\Project\SoundSystem\Library\PackageCache\com.unity.ext.nunit@031a54704bff\net40\unity-custom\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Ookii.Dialogs">
+      <HintPath>D:\DZ_PL\TechnologieSymulacji\Project\SoundSystem\Assets\StandaloneFileBrowser\Plugins\Ookii.Dialogs.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Hashing">
       <HintPath>D:\DZ_PL\TechnologieSymulacji\Project\SoundSystem\Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
     </Reference>
@@ -452,6 +467,9 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>D:\DZ_PL\TechnologieSymulacji\Project\SoundSystem\Library\PackageCache\com.unity.nuget.mono-cecil@d78732e851eb\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>D:\DZ_PL\TechnologieSymulacji\Project\SoundSystem\Assets\StandaloneFileBrowser\Plugins\System.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>D:\DZ_PL\TechnologieSymulacji\Project\SoundSystem\Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
