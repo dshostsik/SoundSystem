@@ -1,0 +1,65 @@
+﻿.root {
+    flex-direction: column;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 16px;
+    background-color: rgb(30, 30, 30);
+    color: rgb(220, 220, 220);
+    width: 320px;
+    height: 100%;
+}
+
+.title {
+    font-size: 20px;
+    -unity-font-style: bold;
+    margin-bottom: 12px;
+}
+
+.section {
+    margin-bottom: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    background-color: rgb(42, 42, 42);
+}
+
+.section-title {
+    font-size: 13px;
+    -unity-font-style: bold;
+    margin-bottom: 6px;
+    color: rgb(156, 220, 254);
+}
+
+Label {
+    margin-bottom: 4px;
+}
+
+DropdownField {
+    margin-bottom: 8px;
+}
+
+Slider {
+    margin-bottom: 8px;
+}
+
+Button {
+    margin-top: 6px;
+    background-color: rgb(70, 70, 70);
+    color: rgb(220, 220, 220);
+}
+
+.primary-button {
+    background-color: rgb(14, 99, 156);
+    color: rgb(255, 255, 255);
+}
+
+.secondary-button {
+    background-color: rgb(58, 58, 58);
+    color: rgb(200, 200, 200);
+}
+
+.info-label {
+    margin-top: 10px;
+    font-size: 11px;
+    color: rgb(170, 170, 170);
+}

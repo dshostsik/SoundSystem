@@ -1,4 +1,47 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+
+    <ui:VisualElement class="root">
+
+        <ui:Label text="Acoustic Simulation" class="title"/>
+
+        <ui:VisualElement class="section">
+            <ui:Label text="System configuration" class="section-title"/>
+            <ui:DropdownField label="Choose system"
+                              name="system_dropdown"
+                              choices="5.1,7.1,9.1"/>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="section">
+            <ui:Label text="Speaker settings" class="section-title"/>
+            <ui:DropdownField label="Edit speaker"
+                              name="speaker_dropdown"/>
+            <ui:Slider label="Level"
+                       name="sound_level"
+                       low-value="0"
+                       high-value="100"/>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="section">
+            <ui:Label text="Audio control" class="section-title"/>
+            <ui:Button text="Select song"
+                       name="choose_song"
+                       class="secondary-button"/>
+            <ui:Button text="Play sound"
+                       name="play_test"
+                       class="primary-button"/>
+        </ui:VisualElement>
+
+        <ui:Label name="info_text"
+                  class="info-label"/>
+        <ui:Style src="UIAcousticPanel.uss" />
+
+    </ui:VisualElement>
+</ui:UXML>
+
+<!-- <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1;">
         <ui:Label text="Settings" name="main_menu" />
         <ui:Slider label="Level" value="42" high-value="100" name="sound_level" />
@@ -8,4 +51,4 @@
         <ui:Button text="Select song" name="choose_song" enabled="false" />
         <ui:Button text="Play sound" name="play_test" enabled="false" />
     </ui:VisualElement>
-</ui:UXML>
+</ui:UXML> -->
