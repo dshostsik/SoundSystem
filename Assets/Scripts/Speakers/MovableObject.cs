@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MovableObject : MonoBehaviour
 {
-
     private bool selected;
     private Vector3 startingPos;
     private Collider col;
@@ -14,7 +13,6 @@ public class MovableObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         col = GetComponent<Collider>();
         selected = false;
         startingPos = transform.position;
@@ -32,29 +30,27 @@ public class MovableObject : MonoBehaviour
             RaycastHit hit;
             if (Player.CameraToMouseRay(out hit))
             {
-                transform.position = hit.point + Vector3.up * transform.localScale.y / 2;
+                transform.position = hit.point;
             }
 
-            if (listener != null)
-            {
-                // wywo³anie co 0.1s tylko gdy pozycja siê zmieni³a znacz¹co
-                if ((transform.position - lastPosition).sqrMagnitude > 0.0001f && Time.time - lastSimTime > 0.1f)
-                {
-                    lastSimTime = Time.time;
-                    RoomAcousticsManager.Instance?.RunSimulation();
-                    lastPosition = transform.position;
-                }
-            }
+            if (!listener) return;
+            
+            // wywo³anie co 0.1s tylko gdy pozycja siê zmieni³a znacz¹co
+            if (!((transform.position - lastPosition).sqrMagnitude > 0.0001f) ||
+                !(Time.time - lastSimTime > 0.1f)) return;
+            
+            lastSimTime = Time.time;
+            RoomAcousticsManager.Instance?.RunSimulation();
+            lastPosition = transform.position;
         }
-
     }
 
     public void SetSelected()
     {
         selected = !selected;
-        if (selected == false)
+        if (!selected)
         {
-            if (Physics.CheckSphere(transform.position, transform.localScale.y / 2.1f))
+            if (!Physics.CheckSphere(transform.position, RoomAcousticsManager.Instance.room.height * 0.95f))
             {
                 transform.position = startingPos;
             }
@@ -63,7 +59,6 @@ public class MovableObject : MonoBehaviour
                 startingPos = transform.position;
             }
 
-            // po zakoñczeniu przesuwania — jeœli to Listener, natychmiastowo uruchamiamy pe³n¹ symulacjê
             if (listener != null)
             {
                 RoomAcousticsManager.Instance?.RunSimulation();
@@ -71,6 +66,7 @@ public class MovableObject : MonoBehaviour
                 lastSimTime = Time.time;
             }
         }
+
         col.enabled = !col.enabled;
     }
 }

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     private int amountOfSpeakers;
     public event Action<int>? AmountOfSpeakersChanged;
-    private static Camera? _cam;
+    private static Camera _cam;
     private FreeCamera freeCamComponent;
     //private GameObject obj;
     private MovableObject? movableObj;

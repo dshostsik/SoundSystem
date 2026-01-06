@@ -30,7 +30,7 @@ public class AcousticUIController : MonoBehaviour
 
     [Header("UI Elements – system selection")]
     public DropdownField systemDropdown;
-    
+
     [Header("UI Elements – speaker controls")]
     public DropdownField speakerDropdown;
 
@@ -150,7 +150,7 @@ public class AcousticUIController : MonoBehaviour
         doc = GetComponent<UIDocument>();
 
         var root = doc.rootVisualElement;
-        
+
         speakerLevelSlider = root.Q<Slider>("sound_level");
         systemDropdown = root.Q<DropdownField>("system_dropdown");
         infoText = root.Q<Label>("info_text");
@@ -158,8 +158,8 @@ public class AcousticUIController : MonoBehaviour
 
         selectSongButton = root.Q<Button>("choose_song");
         playTestButton = root.Q<Button>("play_test");
-        
-        
+
+
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);
         speakerDropdown.RegisterCallback<ChangeEvent<string>>(OnSpeakerSelected);
@@ -175,16 +175,15 @@ public class AcousticUIController : MonoBehaviour
         acoustics = RoomAcousticsManager.Instance;
         systemFactory = acoustics.systemFactory;
         ConfigurationChangedEvent?.Invoke();
-        
+
         go = new GameObject("AcousticUI_TestSource");
         src = go.AddComponent<AudioSource>();
-        
-        
+
+
         RefreshInfo();
     }
 
     // --- SYSTEM SELECTION ------------------------------------------------------
-
     private void OnSystemSelected(ChangeEvent<string> selectedConfiguration)
     {
         string newValue = (string)selectedConfiguration.newValue.Clone();
@@ -205,7 +204,6 @@ public class AcousticUIController : MonoBehaviour
             }
 
             currentSpeakers = systemFactory.CreatedSpeakers;
-            Debug.Log($"{currentSpeakers}:{currentSpeakers.Count}");
             selectSongButton.SetEnabled(true);
             playTestButton.SetEnabled(true);
             RebuildSpeakerDropdown();
@@ -319,7 +317,7 @@ public class AcousticUIController : MonoBehaviour
             Debug.LogWarning("AcousticUIController: testClip is not loaded yet.");
             return;
         }
-        
+
         var ram = RoomAcousticsManager.Instance;
         if (ram.Equals(null) || ram.listener.Equals(null))
         {
@@ -337,30 +335,22 @@ public class AcousticUIController : MonoBehaviour
         visualizer.Speed = ram.speedOfSound;
         visualizer.Amplitude = 0.0025f;
 
-        // if (!AudioManager.Instance.Equals(null))
-        // {
-        //     if(AudioManager.Instance.) AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
-        // }
-        // else
-        // {
-            
-            go.transform.position = ram.listener.transform.position;
+        go.transform.position = ram.listener.transform.position;
+        src.clip = testClip;
+        src.spatialBlend = 1f;
+        src.volume = finalVolume;
+
+
+        if (src.isPlaying)
+        {
+            src.Stop();
             src.clip = testClip;
-            src.spatialBlend = 1f;
-            src.volume = finalVolume;
+        }
 
-            
-            if (src.isPlaying)
-            {
-                src.Stop();
-                src.clip = testClip;
-            }
-
-            src.Play();
+        src.Play();
 
 
-            Destroy(go, testClip.length + 0.1f);
-        //}
+        Destroy(go, testClip.length + 0.1f);
 
         RefreshInfo();
     }
