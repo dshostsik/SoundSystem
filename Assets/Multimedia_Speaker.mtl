@@ -1,0 +1,14 @@
+# Blender 5.0.1 MTL File: 'Multimedia_Speaker.blend'
+# www.blender.org
+
+newmtl speaker_base
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Multimedia Speaker_speaker_base_BaseColor.png
+map_Ns C:/Multimedia Speaker_speaker_base_Roughness.png
+map_refl C:/Multimedia Speaker_speaker_base_Metallic.png
+map_Bump -bm 1.000000 C:/Multimedia Speaker_speaker_base_Normal.png
