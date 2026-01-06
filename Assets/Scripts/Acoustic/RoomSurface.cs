@@ -21,6 +21,13 @@ public class RoomSurface : MonoBehaviour
     [Tooltip("Czy powierzchnia powinna byæ uwzglêdniana przy obliczaniu odbiæ.")]
     public bool enabled = true;
 
+    private void Awake()
+    {
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+
+        meshRenderer.material = this.material.assignedMaterial;
+    }
+
     /// <summary>
     /// Jeœli powierzchnia posiada wa¿ny collider i p³ask¹ geometriê,
     /// zwraca p³aszczyznê (Plane) odpowiadaj¹c¹ tej powierzchni w lokalnym œwiecie.
@@ -29,7 +36,7 @@ public class RoomSurface : MonoBehaviour
     public bool TryGetPlane(out Plane planeWorld)
     {
         planeWorld = new Plane();
-        if (surfaceCollider == null) return false;
+        if (!surfaceCollider) return false;
 
         // Obs³ugujemy najczêœciej BoxCollider i MeshCollider (przy za³o¿eniu planarnoœci)
         if (surfaceCollider is BoxCollider box)

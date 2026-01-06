@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ceiling Tiles
   m_EditorClassIdentifier: Assembly-CSharp::AcousticMaterial
   materialName: Curtains
+  assignedMaterial: {fileID: 2100000, guid: 4901dccf25a273548b7891adafbea718, type: 2}
   absorptionBands:
   - 0.35
   - 0.6

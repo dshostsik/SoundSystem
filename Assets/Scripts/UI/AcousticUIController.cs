@@ -169,8 +169,9 @@ public class AcousticUIController : MonoBehaviour
         selectSongButton.RegisterCallback<ClickEvent>(OnSelectSongClicked);
         playTestButton.RegisterCallback<ClickEvent>(OnPlayTestClicked);
 
-        surfaceDropdown.RegisterCallback<ChangeEvent<string>>(OnSurfaceSelected);
+        surfaceDropdown.RegisterCallback<ChangeEvent<string>>(OnWallSelected);
         materialDropdown.RegisterCallback<ChangeEvent<string>>(OnMaterialSelected);
+        materialDropdown.SetEnabled(false);
 
         pathToMusicFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
     }
@@ -270,12 +271,11 @@ public class AcousticUIController : MonoBehaviour
 
     // --- SURFACES & MATERIALS ------------------------------------------------------------
 
-    private void OnMaterialSelected(ChangeEvent<string> selectedMaterial)
+    private void OnWallSelected(ChangeEvent<string> selectedSurface)
     {
-        string newValue = (string)selectedMaterial.newValue.Clone();
-        int roomSurfaceIndex = surfaceDropdown.index;
+        string newValue = (string)selectedSurface.newValue.Clone();
 
-        materialDropdown.schedule.Execute(() =>
+        surfaceDropdown.schedule.Execute(() =>
         {
             switch (newValue)
             {
@@ -301,29 +301,46 @@ public class AcousticUIController : MonoBehaviour
                     index = -1;
                     break;
             }
-        });
-        var room = acoustics.room;
-        materialDropdown.schedule.Execute(() =>
-        {
-            if (index < 0 || index >= room.surfaces.Length)
-                return;
-            var surface = room.surfaces[index];
-            // zak³adamy ¿e materialDropdown ma przypisane AcousticMaterial z Resources
-            var mats = Resources.LoadAll<AcousticMaterial>("");
-            int newMatIndex = Array.FindIndex(mats, m => m.materialName == newValue);
-            if (newMatIndex >= 0)
-            {
-                surface.material = mats[newMatIndex];
-                ConfigurationChangedEvent?.Invoke();
-                acoustics.RunSimulation();
-                RefreshInfo();
-            }
+            
+            acoustics.RunSimulation();
+            RefreshInfo();
+            materialDropdown.SetEnabled(true);
         });
     }
 
-    private void OnSurfaceSelected(ChangeEvent<string> selectedSurface)
+    private void OnMaterialSelected(ChangeEvent<string> selectedMaterial)
     {
+        string newValue = (string)selectedMaterial.newValue.Clone();
         
+        materialDropdown.schedule.Execute(() =>
+        {
+            RoomSurface surface = RoomAcousticsManager.Instance.room.surfaces[index];
+            AcousticMaterial newMaterial;
+            switch (newValue)
+            {
+                case "Ceiling Tiles":
+                    newMaterial = Resources.Load<AcousticMaterial>("Ceiling Tiles");
+                    break;
+                case "Concrete":
+                    newMaterial = Resources.Load<AcousticMaterial>("Concrete");
+                    break;
+                case "Curtains":
+                    newMaterial = Resources.Load<AcousticMaterial>("Curtains");
+                    break;
+                case "Drywall":
+                    newMaterial =  Resources.Load<AcousticMaterial>("Drywall");
+                    break;
+                case "Rug":
+                    newMaterial = Resources.Load<AcousticMaterial>("Rug");
+                    break;
+                default:
+                    newMaterial  = Resources.Load<AcousticMaterial>("Wood");
+                    break;
+            }
+            
+            surface.material = newMaterial;
+            surface.GetComponent<MeshRenderer>().material = newMaterial.assignedMaterial;
+        });
     }
 
     // --- AUDIO MIXER CALLBACKS -----------------------------------------------
@@ -419,7 +436,7 @@ public class AcousticUIController : MonoBehaviour
         selectSongButton.UnregisterCallback<ClickEvent>(OnSelectSongClicked);
         playTestButton.UnregisterCallback<ClickEvent>(OnPlayTestClicked);
         speakerDropdown.UnregisterValueChangedCallback(OnSpeakerSelected);
-        surfaceDropdown.UnregisterValueChangedCallback(OnSurfaceSelected);
+        surfaceDropdown.UnregisterValueChangedCallback(OnWallSelected);
         materialDropdown.UnregisterValueChangedCallback(OnMaterialSelected);
     }
 }

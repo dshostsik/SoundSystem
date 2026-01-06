@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Concrete
   m_EditorClassIdentifier: Assembly-CSharp::AcousticMaterial
   materialName: Concrete
+  assignedMaterial: {fileID: 2100000, guid: 70b711c6b0dc2884cb3af9664a6383fa, type: 2}
   absorptionBands:
   - 0.1
   - 0.1

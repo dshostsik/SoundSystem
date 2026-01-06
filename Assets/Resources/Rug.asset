@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rug
   m_EditorClassIdentifier: Assembly-CSharp::AcousticMaterial
   materialName: Rug
+  assignedMaterial: {fileID: 2100000, guid: 339054dc1cc8ea34c97ac1abf1c60949, type: 2}
   absorptionBands:
   - 0.08
   - 0.24

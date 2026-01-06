@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Curtains
   m_EditorClassIdentifier: Assembly-CSharp::AcousticMaterial
   materialName: Curtains
+  assignedMaterial: {fileID: 2100000, guid: a948dcd8f0eea624583697dcb71938ee, type: 2}
   absorptionBands:
   - 0.14
   - 0.35
