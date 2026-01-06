@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         amountOfSpeakers = 5;
-        PlayerInstanceManager.Player = this;
         _cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         freeCamComponent = _cam.GetComponent<FreeCamera>();
     }

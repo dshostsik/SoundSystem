@@ -51,16 +51,8 @@ public class MovableObject : MonoBehaviour
                     // p³ynna rotacja do celu:
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, target, rotationSpeed * Time.deltaTime);
 
-                    //// snap gdy przytrzymany Shift (zmienia natychmiastowo do najbli¿szego k¹ta)
-                    //if (snapWithShift && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
-                    //{
-                    //    Vector3 e = transform.eulerAngles;
-                    //    float snappedY = Mathf.Round(e.y / snapAngle) * snapAngle;
-                    //    transform.eulerAngles = new Vector3(e.x, snappedY, e.z);
-                    //}
-
                     // debounce symulacji podczas rotacji (tylko jeœli obiekt to Listener)
-                    if (listener != null && Time.time - lastSimTime > 0.1f)
+                    if (!listener && Time.time - lastSimTime > 0.1f)
                     {
                         float currentY = transform.eulerAngles.y;
                         if (Mathf.Abs(Mathf.DeltaAngle(currentY, lastRotationY)) > 0.5f)

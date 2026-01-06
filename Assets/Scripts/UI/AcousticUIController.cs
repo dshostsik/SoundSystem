@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using SFB;
@@ -35,12 +33,6 @@ public class AcousticUIController : MonoBehaviour
     public DropdownField speakerDropdown;
 
     public Slider speakerLevelSlider;
-    public Slider speakerRotationSlider;
-
-    //[Header("UI Elements – listener controls")]
-    //public Slider listenerX;
-
-    //public Slider listenerZ;
 
     [Header("Audio Mixer (test)")] [Tooltip("Klips testowy odtwarzany przez Play Test")]
     public AudioClip testClip;
@@ -51,9 +43,6 @@ public class AcousticUIController : MonoBehaviour
     private Button selectSongButton;
     private Button playTestButton;
 
-    //// UI elements dla mixera (pobrane z UIDocument)
-    //private Slider masterVolumeSlider;
-    //private Label mixerInfoLabel;
 
     [Header("UI Elements – material controls")]
     public DropdownField surfaceDropdown;
@@ -331,7 +320,6 @@ public class AcousticUIController : MonoBehaviour
     }
 
     // --- AUDIO MIXER CALLBACKS -----------------------------------------------
-
     private void OnMasterVolumeChanged(ChangeEvent<float> evt)
     {
         float v = Mathf.Clamp01(evt.newValue);

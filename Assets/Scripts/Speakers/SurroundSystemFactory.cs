@@ -39,11 +39,8 @@ public class SurroundSystemFactory : MonoBehaviour
     
     public void CreateSystem(SurroundSystemConfig config)
     {
-        // IDK why it returned the list of speakers. we did not use it at all,
-        // so I decided to make it void
         ClearExistingSpeakers();
 
-        // TODO delete when complete
         if (speakerPrefab == null) throw new System.Exception("Speaker prefab not set!");
         if (speakerPrefab.GetComponent<Speaker>() == null) throw new System.Exception("Speaker prefab does not contain Speaker component!");
         
@@ -84,8 +81,6 @@ public class SurroundSystemFactory : MonoBehaviour
 
             createdSpeakers.Add(sp.channelName, sp);
         }
-
-        //return createdSpeakers;
     }
 
     /// <summary>
@@ -102,19 +97,15 @@ public class SurroundSystemFactory : MonoBehaviour
     public void Build51()
     {
         CreateSystem(config51);
-        // Do we really need this here?
-        //RoomAcousticsManager.Instance.RunSimulation();
     }
 
     public void Build71()
     {
         CreateSystem(config71);
-        //RoomAcousticsManager.Instance.RunSimulation();
     }
 
     public void Build91()
     {
         CreateSystem(config91);
-        //RoomAcousticsManager.Instance.RunSimulation();
     }
 }
