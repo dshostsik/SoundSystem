@@ -372,7 +372,7 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""a29fc0dc-bec4-40c4-ad25-62ad2bea622f"",
                     ""path"": ""<Mouse>/middleButton"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RotateSpeaker"",

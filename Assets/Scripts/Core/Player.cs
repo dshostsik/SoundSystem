@@ -11,10 +11,9 @@ public class Player : MonoBehaviour
     public event Action<int>? AmountOfSpeakersChanged;
     private static Camera _cam;
     private FreeCamera freeCamComponent;
-    //private GameObject obj;
     private MovableObject? movableObj;
-    //public Vector3 Position => transform.position;
-    //public Vector3 Forward => transform.forward;
+    private MovableObject? rotatingObj;
+
 
 
     void Start()
@@ -37,12 +36,12 @@ public class Player : MonoBehaviour
         {
             Drag();
         } else {
-            Release();
+            ReleaseMoving();
         }
             
     }
 
-    private void Release()
+    private void ReleaseMoving()
     {
         if (movableObj == null) return;
         movableObj.SetSelected();
@@ -66,6 +65,38 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
 
+    }
+
+    public void OnRotateSpeaker(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Rotate();
+        } else
+        {
+            ReleaseRotating();
+        }
+    }
+
+    private void Rotate()
+    {
+        // start rotating object under cursor (do not toggle selection)
+        if (CameraToMouseRay(out RaycastHit hit))
+        {
+            GameObject targetHit = hit.transform.gameObject;
+            if (!targetHit.CompareTag("Movable")) return;
+
+            rotatingObj = targetHit.GetComponent<MovableObject>();
+
+            rotatingObj.SetRotating();
+        }
+    }
+
+    private void ReleaseRotating()
+    {
+        if (rotatingObj == null) return;
+        rotatingObj.SetRotating();
+        rotatingObj = null;
     }
 
     void ChangeAmountOfSpeakers(int newAmount) {
