@@ -8,7 +8,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:/Multimedia Speaker_speaker_base_BaseColor.png
-map_Ns C:/Multimedia Speaker_speaker_base_Roughness.png
-map_refl C:/Multimedia Speaker_speaker_base_Metallic.png
-map_Bump -bm 1.000000 C:/Multimedia Speaker_speaker_base_Normal.png
+map_Kd ./Multimedia Speaker_speaker_base_BaseColor.png
+map_Ns ./Multimedia Speaker_speaker_base_Roughness.png
+map_refl ./Multimedia Speaker_speaker_base_Metallic.png
+map_Bump -bm 1.000000 ./Multimedia Speaker_speaker_base_Normal.png
