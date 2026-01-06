@@ -10,7 +10,7 @@ using UnityEngine;
 public class AcousticMaterial : ScriptableObject
 {
     [Header("Material of walls")]
-    [SerializeField] private string materialName;
+    [SerializeField] public string materialName;
 
     //[SerializeField] private Dictionary<float, float> absorptionCoefficient;
     

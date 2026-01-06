@@ -1,42 +1,26 @@
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
-
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement class="root">
-
-        <ui:Label text="Acoustic Simulation" class="title"/>
-
+        <Style src="project://database/Assets/UI%20Toolkit/UIAcousticPanel.uss?fileID=7433441132597879392&amp;guid=3d171f75bb1d442418468941ccbec823&amp;type=3#UIAcousticPanel" />
+        <ui:Label text="Acoustic Simulation" class="title" />
         <ui:VisualElement class="section">
-            <ui:Label text="System configuration" class="section-title"/>
-            <ui:DropdownField label="Choose system"
-                              name="system_dropdown"
-                              choices="5.1,7.1,9.1"/>
+            <ui:Label text="System configuration" class="section-title" />
+            <ui:DropdownField label="Choose system" name="system_dropdown" choices="5.1,7.1,9.1" />
         </ui:VisualElement>
-
         <ui:VisualElement class="section">
-            <ui:Label text="Speaker settings" class="section-title"/>
-            <ui:DropdownField label="Edit speaker"
-                              name="speaker_dropdown"/>
-            <ui:Slider label="Level"
-                       name="sound_level"
-                       low-value="0"
-                       high-value="100"/>
+            <ui:Label text="Speaker settings" class="section-title" />
+            <ui:DropdownField label="Edit speaker" name="speaker_dropdown" />
+            <ui:Slider label="Level" name="sound_level" low-value="0" high-value="100" />
         </ui:VisualElement>
-
         <ui:VisualElement class="section">
-            <ui:Label text="Audio control" class="section-title"/>
-            <ui:Button text="Select song"
-                       name="choose_song"
-                       class="secondary-button"/>
-            <ui:Button text="Play sound"
-                       name="play_test"
-                       class="primary-button"/>
+            <ui:Label text="Surfaces settings" class="section-title" />
+            <ui:DropdownField label="Edit wall" name="surface_dropdown" choices="Ceiling,Floor,Right wall,Left wall,Front wall,Back wall" />
+            <ui:DropdownField label="Material" name="material_dropdown" choices="Ceiling Tiles, Concrete, Curtains, Drywall, Rug, Wood" />
         </ui:VisualElement>
-
-        <ui:Label name="info_text"
-                  class="info-label"/>
-        <ui:Style src="UIAcousticPanel.uss" />
-
+        <ui:VisualElement class="section">
+            <ui:Label text="Audio control" class="section-title" />
+            <ui:Button text="Select song" name="choose_song" class="secondary-button" />
+            <ui:Button text="Play sound" name="play_test" class="primary-button" />
+        </ui:VisualElement>
+        <ui:Label name="info_text" class="info-label" />
     </ui:VisualElement>
 </ui:UXML>
