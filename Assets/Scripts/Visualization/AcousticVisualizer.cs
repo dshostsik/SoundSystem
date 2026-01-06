@@ -103,7 +103,7 @@ public class AcousticVisualizer : MonoBehaviour
     {
         ClearIR();
 
-        if (!showIR || h == null || irGraphParent .Equals(null))
+        if (!showIR || h == null || !irGraphParent)
             return;
 
         float width = irGraphParent.rect.width;

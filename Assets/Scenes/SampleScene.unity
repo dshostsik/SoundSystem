@@ -2086,7 +2086,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2142430107}
-  - component: {fileID: 2142430106}
   m_Layer: 0
   m_Name: SpeakerManager
   m_TagString: Untagged
@@ -2094,22 +2093,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2142430106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142430105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef1e1bdcebec464f912d1bbf8125acf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpeakerContainer
-  speakerPrefab: {fileID: 7980201099532493235, guid: c365ab98c189ba44dadd59576f689438, type: 3}
-  system51: {fileID: 11400000, guid: 135d012b99735d04aa6db7ca58f89e89, type: 2}
-  system71: {fileID: 11400000, guid: 66bd2086f9a91ee46b4c4c182f25cd46, type: 2}
-  system91: {fileID: 11400000, guid: b10286a2ad0f97543b9a1e336ea741ab, type: 2}
 --- !u!4 &2142430107
 Transform:
   m_ObjectHideFlags: 0

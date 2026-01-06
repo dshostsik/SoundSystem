@@ -17,12 +17,6 @@ namespace Visualization
             get => amplitude;
             set
             {
-                /*if (value < 0) throw new System.ArgumentOutOfRangeException("Amplitude cannot be negative");
-                if (!renderer.Equals(null))
-                {
-                    amplitude = value;
-                    renderer.material.SetFloat(Amplitude1, amplitude);
-                } else throw new System.NullReferenceException("Renderer is not set. Failed to sign amplitude");*/
                 amplitude = this.SetUniformValue(amplitudeUniformIndex, value);
             }
         }
@@ -34,21 +28,6 @@ namespace Visualization
             get => frequency;
             set
             {
-                /*if (value < 0) throw new System.ArgumentOutOfRangeException("Frequency cannot be negative");
-                if (!renderer.Equals(null))
-                {
-                    frequency = value;
-                    try
-                    {
-                        renderer.material.SetFloat(Frequency1, frequency / 40);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e.Message);
-                        throw;
-                    }
-                }
-                else throw new System.NullReferenceException("Renderer is not set. Failed to sign frequency");*/
                 frequency = this.SetUniformValue(frequencyUniformIndex, value);
             }
         }
@@ -60,13 +39,6 @@ namespace Visualization
             get => speed;
             set
             {
-                /*if (value < 0) throw new System.ArgumentOutOfRangeException("Speed cannot be negative");
-
-                if (!renderer.Equals(null))
-                {
-                    speed = value;
-                    renderer.material.SetFloat(Speed1, speed);
-                } else throw new System.NullReferenceException("Renderer is not set. Failed to sign speed");*/
                 speed = this.SetUniformValue(speedUniformIndex, value);
             }
         }
@@ -83,7 +55,7 @@ namespace Visualization
         /// <exception cref="ArgumentOutOfRangeException">if argument exceeds range</exception>
         private float SetUniformValue(int uniformID, float value, float min = 0, float max = int.MaxValue)
         {
-            if (renderer.Equals(null)) throw new NullReferenceException("Renderer is not set. Failed to sign value");
+            if (!renderer) throw new NullReferenceException("Renderer is not set. Failed to sign value");
             
             if (value < min || value > max) throw new ArgumentOutOfRangeException("Argument must be between " + min + " and " + max);
             
@@ -96,7 +68,7 @@ namespace Visualization
             get => renderer;
             set
             {
-                if (!value.Equals(null)) renderer = value;
+                if (value != null) renderer = value;
                 else throw new System.NullReferenceException("Renderer cannot be null");
                 amplitudeUniformIndex = renderer.material.shader.FindPropertyIndex("_Amplitude");
                 if (amplitudeUniformIndex == -1) throw new Exception("Amplitude property not found");

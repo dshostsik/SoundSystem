@@ -329,7 +329,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnPlayTestClicked(ClickEvent evt)
     {
-        if (testClip.Equals(null))
+        if (!testClip)
         {
             Debug.LogWarning("AcousticUIController: testClip is not assigned.");
             return;
@@ -342,7 +342,7 @@ public class AcousticUIController : MonoBehaviour
         }
 
         var ram = RoomAcousticsManager.Instance;
-        if (ram.Equals(null) || ram.listener.Equals(null))
+        if (!ram || !ram.listener)
         {
             Debug.LogWarning("AcousticUIController: RoomAcousticsManager or listener missing.");
             return;
