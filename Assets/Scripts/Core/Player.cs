@@ -24,11 +24,6 @@ public class Player : MonoBehaviour
         freeCamComponent = _cam.GetComponent<FreeCamera>();
     }
 
-    void Update()
-    {
-
-    }
-
     public void OnDrag(InputValue value)
     {
 
@@ -59,12 +54,6 @@ public class Player : MonoBehaviour
             movableObj = targetHit.GetComponent<MovableObject>();
             movableObj.SetSelected();
         }
-    }
-
-
-    void FixedUpdate()
-    {
-
     }
 
     public void OnRotateSpeaker(InputValue value)
