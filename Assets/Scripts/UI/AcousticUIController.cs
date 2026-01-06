@@ -315,29 +315,16 @@ public class AcousticUIController : MonoBehaviour
         materialDropdown.schedule.Execute(() =>
         {
             RoomSurface surface = RoomAcousticsManager.Instance.room.surfaces[index];
-            AcousticMaterial newMaterial;
-            switch (newValue)
+            AcousticMaterial newMaterial = newValue switch
             {
-                case "Ceiling Tiles":
-                    newMaterial = Resources.Load<AcousticMaterial>("Ceiling Tiles");
-                    break;
-                case "Concrete":
-                    newMaterial = Resources.Load<AcousticMaterial>("Concrete");
-                    break;
-                case "Curtains":
-                    newMaterial = Resources.Load<AcousticMaterial>("Curtains");
-                    break;
-                case "Drywall":
-                    newMaterial =  Resources.Load<AcousticMaterial>("Drywall");
-                    break;
-                case "Rug":
-                    newMaterial = Resources.Load<AcousticMaterial>("Rug");
-                    break;
-                default:
-                    newMaterial  = Resources.Load<AcousticMaterial>("Wood");
-                    break;
-            }
-            
+                "Ceiling Tiles" => Resources.Load<AcousticMaterial>("Ceiling Tiles"),
+                "Concrete" => Resources.Load<AcousticMaterial>("Concrete"),
+                "Curtains" => Resources.Load<AcousticMaterial>("Curtains"),
+                "Drywall" => Resources.Load<AcousticMaterial>("Drywall"),
+                "Rug" => Resources.Load<AcousticMaterial>("Rug"),
+                _ => Resources.Load<AcousticMaterial>("Wood")
+            };
+
             surface.material = newMaterial;
             surface.GetComponent<MeshRenderer>().material = newMaterial.assignedMaterial;
         });

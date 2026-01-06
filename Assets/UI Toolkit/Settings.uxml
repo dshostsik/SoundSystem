@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement class="root">
+    <ui:VisualElement class="root" style="width: 408px;">
         <Style src="project://database/Assets/UI%20Toolkit/UIAcousticPanel.uss?fileID=7433441132597879392&amp;guid=3d171f75bb1d442418468941ccbec823&amp;type=3#UIAcousticPanel" />
         <ui:Label text="Acoustic Simulation" class="title" />
         <ui:VisualElement class="section">
