@@ -28,7 +28,7 @@ namespace Visualization
             get => frequency;
             set
             {
-                frequency = this.SetUniformValue(frequencyUniformIndex, value);
+                frequency = this.SetUniformValue(frequencyUniformIndex, value / 100);
             }
         }
 
