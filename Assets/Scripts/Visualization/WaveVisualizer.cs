@@ -70,12 +70,13 @@ namespace Visualization
             {
                 if (value != null) renderer = value;
                 else throw new System.NullReferenceException("Renderer cannot be null");
-                amplitudeUniformIndex = renderer.material.shader.FindPropertyIndex("_Amplitude");
-                if (amplitudeUniformIndex == -1) throw new Exception("Amplitude property not found");
-                frequencyUniformIndex = renderer.material.shader.FindPropertyIndex("_Frequency");
-                if (frequencyUniformIndex == -1) throw new Exception("Frequency property not found");
-                speedUniformIndex = renderer.material.shader.FindPropertyIndex("_Speed");
-                if (speedUniformIndex == -1) throw new Exception("Speed property not found");
+                
+                amplitudeUniformIndex = Shader.PropertyToID("_Amplitude");
+                if (!renderer.material.HasProperty(amplitudeUniformIndex)) throw new Exception("Amplitude property not found");
+                frequencyUniformIndex = Shader.PropertyToID("_Frequency");
+                if (!renderer.material.HasProperty(frequencyUniformIndex)) throw new Exception("Frequency property not found");
+                speedUniformIndex = Shader.PropertyToID("_Speed");
+                if (!renderer.material.HasProperty(speedUniformIndex)) throw new Exception("Speed property not found");
             }
         }
     }
