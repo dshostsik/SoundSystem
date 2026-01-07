@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Visualization
 {
-    public class WaveVisualizer
+    public class WaveVisualizer : MonoBehaviour
     {
         private int amplitudeUniformIndex;
         private int frequencyUniformIndex;
         private int speedUniformIndex;
-        private Renderer renderer;
+        private Renderer waveRenderer;
 
         private float amplitude;
 
@@ -55,28 +55,28 @@ namespace Visualization
         /// <exception cref="ArgumentOutOfRangeException">if argument exceeds range</exception>
         private float SetUniformValue(int uniformID, float value, float min = 0, float max = int.MaxValue)
         {
-            if (!renderer) throw new NullReferenceException("Renderer is not set. Failed to sign value");
+            if (!waveRenderer) throw new NullReferenceException("Renderer is not set. Failed to sign value");
             
             if (value < min || value > max) throw new ArgumentOutOfRangeException("Argument must be between " + min + " and " + max);
             
-            renderer.material.SetFloat(uniformID, value);
+            waveRenderer.material.SetFloat(uniformID, value);
             return value;
         }
 
         public Renderer Renderer
         {
-            get => renderer;
+            get => waveRenderer;
             set
             {
-                if (value != null) renderer = value;
+                if (value != null) waveRenderer = value;
                 else throw new System.NullReferenceException("Renderer cannot be null");
                 
                 amplitudeUniformIndex = Shader.PropertyToID("_Amplitude");
-                if (!renderer.material.HasProperty(amplitudeUniformIndex)) throw new Exception("Amplitude property not found");
+                if (!waveRenderer.material.HasProperty(amplitudeUniformIndex)) throw new Exception("Amplitude property not found");
                 frequencyUniformIndex = Shader.PropertyToID("_Frequency");
-                if (!renderer.material.HasProperty(frequencyUniformIndex)) throw new Exception("Frequency property not found");
+                if (!waveRenderer.material.HasProperty(frequencyUniformIndex)) throw new Exception("Frequency property not found");
                 speedUniformIndex = Shader.PropertyToID("_Speed");
-                if (!renderer.material.HasProperty(speedUniformIndex)) throw new Exception("Speed property not found");
+                if (!waveRenderer.material.HasProperty(speedUniformIndex)) throw new Exception("Speed property not found");
             }
         }
     }

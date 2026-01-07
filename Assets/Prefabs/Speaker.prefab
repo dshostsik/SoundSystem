@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2452337616542137360}
   - component: {fileID: 1140379309289205422}
   - component: {fileID: 2331784721259538369}
+  - component: {fileID: -525960907334230026}
   m_Layer: 0
   m_Name: Speaker
   m_TagString: Movable
@@ -141,3 +142,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c258afbc2333dd845ae6dcc5d87137a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovableObject
+  rotationSpeed: 180
+  snapWithShift: 1
+  snapAngle: 15
+--- !u!114 &-525960907334230026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980201099532493235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1379731e216ecf540b0524ef14c37178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Visualization.WaveVisualizer

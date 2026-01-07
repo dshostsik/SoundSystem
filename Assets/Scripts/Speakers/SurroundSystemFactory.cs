@@ -25,8 +25,10 @@ public class SurroundSystemFactory : MonoBehaviour
     public SurroundSystemConfig config91;
 
     private Dictionary<string, Speaker> createdSpeakers = new();
+    private Dictionary<string, WaveVisualizer> createdWaves = new();
 
     public IReadOnlyDictionary<string, Speaker> CreatedSpeakers => createdSpeakers;
+    public IReadOnlyDictionary<string, WaveVisualizer> CreatedWaves => createdWaves;
 
     /// <summary>
     /// Tworzy system surround zgodnie z podanym configiem.
@@ -66,9 +68,8 @@ public class SurroundSystemFactory : MonoBehaviour
             Vector3 frontPos = worldCenter + obj.transform.forward * ((bc.size.z * 0.5f) * obj.transform.lossyScale.z);
             wave.transform.position = frontPos;
             
-            Renderer waveRenderer = wave.GetComponent<Renderer>();
-
-            WaveVisualizerFactory.Visualizer.Renderer = waveRenderer;
+            
+            
             // waveVisualizer.Amplitude = 0;
             // waveVisualizer.Frequency = 0;
             // waveVisualizer.Speed = 0;
@@ -80,6 +81,10 @@ public class SurroundSystemFactory : MonoBehaviour
             sp.channelName = config.channelNames[i];
 
             createdSpeakers.Add(sp.channelName, sp);
+            
+            WaveVisualizer visualizer = sp.GetComponent<WaveVisualizer>();
+            visualizer.Renderer = wave.GetComponent<Renderer>();
+            createdWaves.Add(sp.channelName, visualizer);
         }
     }
 

@@ -352,11 +352,12 @@ public class AcousticUIController : MonoBehaviour
         float linear = DbToLinear(db, dbForFullVolume);
         float finalVolume = Mathf.Clamp01(linear * AudioListener.volume);
 
-        WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
-
-        visualizer.Frequency = ram.sampleRate;
-        visualizer.Speed = ram.speedOfSound;
-        visualizer.Amplitude = 0.0025f;
+        foreach (WaveVisualizer visualizer in  systemFactory.CreatedWaves.Values)
+        {
+            visualizer.Frequency = ram.sampleRate;
+            visualizer.Speed = ram.speedOfSound;
+            visualizer.Amplitude = 0.0025f;
+        }
 
         go.transform.position = ram.listener.transform.position;
         src.clip = testClip;
