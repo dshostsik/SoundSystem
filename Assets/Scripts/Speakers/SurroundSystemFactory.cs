@@ -97,6 +97,11 @@ public class SurroundSystemFactory : MonoBehaviour
             if (sp != null) Destroy(sp.gameObject);
 
         createdSpeakers.Clear();
+        
+        foreach (var wave in createdWaves.Values)
+            if (wave != null) Destroy(wave.gameObject);
+        
+        createdWaves.Clear();
     }
 
     public void Build51()
