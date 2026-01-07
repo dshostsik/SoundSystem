@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa624b144414e7eb05f80bf5ce247ba, type: 3}
+  m_Name: Concrete
+  m_EditorClassIdentifier: Assembly-CSharp::AcousticMaterial
+  materialName: Concrete
+  assignedMaterial: {fileID: 2100000, guid: 70b711c6b0dc2884cb3af9664a6383fa, type: 2}
+  absorptionBands:
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  clampToZeroOne: 1

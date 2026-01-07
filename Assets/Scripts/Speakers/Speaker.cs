@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class Speaker : MonoBehaviour
 {
-
-    //[SerializeField] private new string name;
-    //[SerializeField] private string model;
-
-    //public string Name => name;
-    //public string Model => model;
-    
     [Header("Physical parameters")]
     public string channelName; // L, R, C, (LS, RS), LB, RB, SUB
     public float baseLevel = 1f;
@@ -21,26 +14,6 @@ public class Speaker : MonoBehaviour
 
     public Vector3 Position => transform.position;
     public Vector3 Forward => transform.forward;
-
-    //public float BaseLevel
-    //{
-    //    get => baseLevel;
-    //    set => baseLevel = value >= 0 ? value : -value;
-    //}
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 
 
     public float GetDirectivityGain(Vector3 listenerPos)

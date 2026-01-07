@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using SFB;
@@ -30,17 +28,11 @@ public class AcousticUIController : MonoBehaviour
 
     [Header("UI Elements – system selection")]
     public DropdownField systemDropdown;
-    
+
     [Header("UI Elements – speaker controls")]
     public DropdownField speakerDropdown;
 
     public Slider speakerLevelSlider;
-    public Slider speakerRotationSlider;
-
-    //[Header("UI Elements – listener controls")]
-    //public Slider listenerX;
-
-    //public Slider listenerZ;
 
     [Header("Audio Mixer (test)")] [Tooltip("Klips testowy odtwarzany przez Play Test")]
     public AudioClip testClip;
@@ -51,14 +43,11 @@ public class AcousticUIController : MonoBehaviour
     private Button selectSongButton;
     private Button playTestButton;
 
-    //// UI elements dla mixera (pobrane z UIDocument)
-    //private Slider masterVolumeSlider;
-    //private Label mixerInfoLabel;
 
     [Header("UI Elements – material controls")]
-    public TMP_Dropdown surfaceDropdown;
+    public DropdownField surfaceDropdown;
 
-    public TMP_Dropdown materialDropdown;
+    public DropdownField materialDropdown;
 
     [Header("UI Elements – debug")] public Label infoText;
 
@@ -89,7 +78,7 @@ public class AcousticUIController : MonoBehaviour
     private AudioSource audioSrc;
     private GameObject go;
     private AudioSource src;
-
+    private int index = -1;
     /// <summary>
     /// Select the song from file explorer
     /// </summary>
@@ -150,21 +139,28 @@ public class AcousticUIController : MonoBehaviour
         doc = GetComponent<UIDocument>();
 
         var root = doc.rootVisualElement;
-        
+
         speakerLevelSlider = root.Q<Slider>("sound_level");
         systemDropdown = root.Q<DropdownField>("system_dropdown");
         infoText = root.Q<Label>("info_text");
         speakerDropdown = root.Q<DropdownField>("speaker_dropdown");
 
+        surfaceDropdown = root.Q<DropdownField>("surface_dropdown");
+        materialDropdown = root.Q<DropdownField>("material_dropdown");
+
         selectSongButton = root.Q<Button>("choose_song");
         playTestButton = root.Q<Button>("play_test");
-        
-        
+
+
         speakerLevelSlider.RegisterValueChangedCallback(OnSpeakerLevelChanged);
         systemDropdown.RegisterCallback<ChangeEvent<string>>(OnSystemSelected);
         speakerDropdown.RegisterCallback<ChangeEvent<string>>(OnSpeakerSelected);
         selectSongButton.RegisterCallback<ClickEvent>(OnSelectSongClicked);
         playTestButton.RegisterCallback<ClickEvent>(OnPlayTestClicked);
+
+        surfaceDropdown.RegisterCallback<ChangeEvent<string>>(OnWallSelected);
+        materialDropdown.RegisterCallback<ChangeEvent<string>>(OnMaterialSelected);
+        materialDropdown.SetEnabled(false);
 
         pathToMusicFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
     }
@@ -175,28 +171,27 @@ public class AcousticUIController : MonoBehaviour
         acoustics = RoomAcousticsManager.Instance;
         systemFactory = acoustics.systemFactory;
         ConfigurationChangedEvent?.Invoke();
-        
+
         go = new GameObject("AcousticUI_TestSource");
         src = go.AddComponent<AudioSource>();
-        
-        
+
+
         RefreshInfo();
     }
 
     // --- SYSTEM SELECTION ------------------------------------------------------
-
     private void OnSystemSelected(ChangeEvent<string> selectedConfiguration)
     {
         string newValue = (string)selectedConfiguration.newValue.Clone();
-
+        
         systemDropdown.schedule.Execute(() =>
         {
             switch (newValue)
             {
-                case "5_1":
+                case "5.1":
                     systemFactory.Build51();
                     break;
-                case "7_1":
+                case "7.1":
                     systemFactory.Build71();
                     break;
                 default:
@@ -205,7 +200,6 @@ public class AcousticUIController : MonoBehaviour
             }
 
             currentSpeakers = systemFactory.CreatedSpeakers;
-            Debug.Log($"{currentSpeakers}:{currentSpeakers.Count}");
             selectSongButton.SetEnabled(true);
             playTestButton.SetEnabled(true);
             RebuildSpeakerDropdown();
@@ -238,8 +232,6 @@ public class AcousticUIController : MonoBehaviour
 
         speakerLevelSlider.value = currentSpeakerSelection.baseLevel;
         ConfigurationChangedEvent?.Invoke();
-        // TODO: bring back when rotation slider implemented
-//        speakerRotationSlider.value = currentSpeakerSelection.transform.eulerAngles.y;
     }
 
     private void OnSpeakerLevelChanged(ChangeEvent<float> newLevel)
@@ -248,15 +240,6 @@ public class AcousticUIController : MonoBehaviour
 
         ConfigurationChangedEvent?.Invoke();
         currentSpeakerSelection.SetBaseLevel(newLevel.newValue);
-        RefreshInfo();
-    }
-
-    private void OnSpeakerRotationChanged(float rotY)
-    {
-        if (currentSpeakerSelection == null) return;
-
-        ConfigurationChangedEvent?.Invoke();
-        currentSpeakerSelection.SetRotation(Quaternion.Euler(0, rotY, 0));
         RefreshInfo();
     }
 
@@ -275,30 +258,68 @@ public class AcousticUIController : MonoBehaviour
     //    RefreshInfo();
     //}
 
-    // --- MATERIALS ------------------------------------------------------------
-    private void OnMaterialSelected(int index)
+    // --- SURFACES & MATERIALS ------------------------------------------------------------
+
+    private void OnWallSelected(ChangeEvent<string> selectedSurface)
     {
-        var room = acoustics.room;
-        int surfaceIndex = surfaceDropdown.value;
+        string newValue = (string)selectedSurface.newValue.Clone();
 
-        if (surfaceIndex < 0 || surfaceIndex >= room.surfaces.Length)
-            return;
+        surfaceDropdown.schedule.Execute(() =>
+        {
+            switch (newValue)
+            {
+                case "Ceiling":
+                    index = 0;
+                    break;
+                case "Floor":
+                    index = 1;
+                    break;
+                case "Right wall":
+                    index = 2;
+                    break;
+                case "Left wall":
+                    index = 3;
+                    break;
+                case "Front wall":
+                    index = 4;
+                    break;
+                case "Back wall":
+                    index = 5;
+                    break;
+                default:
+                    index = -1;
+                    break;
+            }
+            
+            acoustics.RunSimulation();
+            RefreshInfo();
+            materialDropdown.SetEnabled(true);
+        });
+    }
 
-        var surface = room.surfaces[surfaceIndex];
+    private void OnMaterialSelected(ChangeEvent<string> selectedMaterial)
+    {
+        string newValue = (string)selectedMaterial.newValue.Clone();
+        
+        materialDropdown.schedule.Execute(() =>
+        {
+            RoomSurface surface = RoomAcousticsManager.Instance.room.surfaces[index];
+            AcousticMaterial newMaterial = newValue switch
+            {
+                "Ceiling Tiles" => Resources.Load<AcousticMaterial>("Ceiling Tiles"),
+                "Concrete" => Resources.Load<AcousticMaterial>("Concrete"),
+                "Curtains" => Resources.Load<AcousticMaterial>("Curtains"),
+                "Drywall" => Resources.Load<AcousticMaterial>("Drywall"),
+                "Rug" => Resources.Load<AcousticMaterial>("Rug"),
+                _ => Resources.Load<AcousticMaterial>("Wood")
+            };
 
-        // zak³adamy ¿e materialDropdown ma przypisane AcousticMaterial z Resources
-        var mats = Resources.LoadAll<AcousticMaterial>("");
-        if (index < 0 || index >= mats.Length)
-            return;
-
-        surface.material = mats[index];
-        ConfigurationChangedEvent?.Invoke();
-        acoustics.RunSimulation();
-        RefreshInfo();
+            surface.material = newMaterial;
+            surface.GetComponent<MeshRenderer>().material = newMaterial.assignedMaterial;
+        });
     }
 
     // --- AUDIO MIXER CALLBACKS -----------------------------------------------
-
     private void OnMasterVolumeChanged(ChangeEvent<float> evt)
     {
         float v = Mathf.Clamp01(evt.newValue);
@@ -308,7 +329,7 @@ public class AcousticUIController : MonoBehaviour
 
     private void OnPlayTestClicked(ClickEvent evt)
     {
-        if (testClip.Equals(null))
+        if (!testClip)
         {
             Debug.LogWarning("AcousticUIController: testClip is not assigned.");
             return;
@@ -319,9 +340,9 @@ public class AcousticUIController : MonoBehaviour
             Debug.LogWarning("AcousticUIController: testClip is not loaded yet.");
             return;
         }
-        
+
         var ram = RoomAcousticsManager.Instance;
-        if (ram.Equals(null) || ram.listener.Equals(null))
+        if (!ram || !ram.listener)
         {
             Debug.LogWarning("AcousticUIController: RoomAcousticsManager or listener missing.");
             return;
@@ -331,36 +352,29 @@ public class AcousticUIController : MonoBehaviour
         float linear = DbToLinear(db, dbForFullVolume);
         float finalVolume = Mathf.Clamp01(linear * AudioListener.volume);
 
-        WaveVisualizer visualizer = WaveVisualizerFactory.Visualizer;
+        foreach (WaveVisualizer visualizer in  systemFactory.CreatedWaves.Values)
+        {
+            visualizer.Frequency = ram.sampleRate;
+            visualizer.Speed = ram.speedOfSound;
+            visualizer.Amplitude = 0.0025f;
+        }
 
-        visualizer.Frequency = ram.sampleRate;
-        visualizer.Speed = ram.speedOfSound;
-        visualizer.Amplitude = 0.0025f;
+        go.transform.position = ram.listener.transform.position;
+        src.clip = testClip;
+        src.spatialBlend = 1f;
+        src.volume = finalVolume;
 
-        // if (!AudioManager.Instance.Equals(null))
-        // {
-        //     if(AudioManager.Instance.) AudioManager.Instance.PlaySoundClip(testClip, ram.listener.transform, finalVolume);
-        // }
-        // else
-        // {
-            
-            go.transform.position = ram.listener.transform.position;
+
+        if (src.isPlaying)
+        {
+            src.Stop();
             src.clip = testClip;
-            src.spatialBlend = 1f;
-            src.volume = finalVolume;
+        }
 
-            
-            if (src.isPlaying)
-            {
-                src.Stop();
-                src.clip = testClip;
-            }
-
-            src.Play();
+        src.Play();
 
 
-            Destroy(go, testClip.length + 0.1f);
-        //}
+        Destroy(go, testClip.length + 0.1f);
 
         RefreshInfo();
     }
@@ -398,5 +412,7 @@ public class AcousticUIController : MonoBehaviour
         selectSongButton.UnregisterCallback<ClickEvent>(OnSelectSongClicked);
         playTestButton.UnregisterCallback<ClickEvent>(OnPlayTestClicked);
         speakerDropdown.UnregisterValueChangedCallback(OnSpeakerSelected);
+        surfaceDropdown.UnregisterValueChangedCallback(OnWallSelected);
+        materialDropdown.UnregisterValueChangedCallback(OnMaterialSelected);
     }
 }

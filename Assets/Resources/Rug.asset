@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa624b144414e7eb05f80bf5ce247ba, type: 3}
   m_Name: Rug
   m_EditorClassIdentifier: Assembly-CSharp::AcousticMaterial
-  materialName: Dywan
+  materialName: Rug
+  assignedMaterial: {fileID: 2100000, guid: 339054dc1cc8ea34c97ac1abf1c60949, type: 2}
   absorptionBands:
   - 0.08
   - 0.24

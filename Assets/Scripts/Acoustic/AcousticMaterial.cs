@@ -10,26 +10,15 @@ using UnityEngine;
 public class AcousticMaterial : ScriptableObject
 {
     [Header("Material of walls")]
-    [SerializeField] private string materialName;
-
-    //[SerializeField] private Dictionary<float, float> absorptionCoefficient;
+    [SerializeField] public string materialName;
+    
+    [Header("Texture")]
+    public Material assignedMaterial;
     
     // 6–8 pasm oktawowych
     public float[] absorptionBands = new float[6] { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f}; // α(f)
     public bool clampToZeroOne = true;
-
-    //public WallMaterial(string name, float absorptionCoefficient)
-    //{
-    //    this.name = name;
-    //    this.absorptionCoefficient = absorptionCoefficient;
-    //}
-
-    //public float GetAbsorption(int band) =>
-    //    absorptionBands[Mathf.Clamp(band, 0, absorptionBands.Length - 1)];
-
-    //public float GetReflection(int band) =>
-    //    Mathf.Sqrt(1f - GetAbsorption(band));
-
+    
     public float GetAbsorptionByIndex(int bandIndex)
     {
         if (absorptionBands == null || absorptionBands.Length == 0)

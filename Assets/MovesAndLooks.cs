@@ -136,6 +136,15 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateSpeaker"",
+                    ""type"": ""Button"",
+                    ""id"": ""08ff93e7-86e3-44dc-a50a-0235b59b864f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -358,6 +367,17 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
                     ""action"": ""RunSimulation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a29fc0dc-bec4-40c4-ad25-62ad2bea622f"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateSpeaker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -371,6 +391,7 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
         m_Moving_Drag = m_Moving.FindAction("Drag", throwIfNotFound: true);
         m_Moving_CameraRotateConfirm = m_Moving.FindAction("CameraRotateConfirm", throwIfNotFound: true);
         m_Moving_RunSimulation = m_Moving.FindAction("RunSimulation", throwIfNotFound: true);
+        m_Moving_RotateSpeaker = m_Moving.FindAction("RotateSpeaker", throwIfNotFound: true);
     }
 
     ~@MovesAndLooks()
@@ -456,6 +477,7 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
     private readonly InputAction m_Moving_Drag;
     private readonly InputAction m_Moving_CameraRotateConfirm;
     private readonly InputAction m_Moving_RunSimulation;
+    private readonly InputAction m_Moving_RotateSpeaker;
     /// <summary>
     /// Provides access to input actions defined in input action map "Moving".
     /// </summary>
@@ -487,6 +509,10 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Moving/RunSimulation".
         /// </summary>
         public InputAction @RunSimulation => m_Wrapper.m_Moving_RunSimulation;
+        /// <summary>
+        /// Provides access to the underlying input action "Moving/RotateSpeaker".
+        /// </summary>
+        public InputAction @RotateSpeaker => m_Wrapper.m_Moving_RotateSpeaker;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -528,6 +554,9 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
             @RunSimulation.started += instance.OnRunSimulation;
             @RunSimulation.performed += instance.OnRunSimulation;
             @RunSimulation.canceled += instance.OnRunSimulation;
+            @RotateSpeaker.started += instance.OnRotateSpeaker;
+            @RotateSpeaker.performed += instance.OnRotateSpeaker;
+            @RotateSpeaker.canceled += instance.OnRotateSpeaker;
         }
 
         /// <summary>
@@ -554,6 +583,9 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
             @RunSimulation.started -= instance.OnRunSimulation;
             @RunSimulation.performed -= instance.OnRunSimulation;
             @RunSimulation.canceled -= instance.OnRunSimulation;
+            @RotateSpeaker.started -= instance.OnRotateSpeaker;
+            @RotateSpeaker.performed -= instance.OnRotateSpeaker;
+            @RotateSpeaker.canceled -= instance.OnRotateSpeaker;
         }
 
         /// <summary>
@@ -629,5 +661,12 @@ public partial class @MovesAndLooks: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRunSimulation(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RotateSpeaker" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateSpeaker(InputAction.CallbackContext context);
     }
 }

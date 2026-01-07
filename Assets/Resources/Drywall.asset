@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa624b144414e7eb05f80bf5ce247ba, type: 3}
   m_Name: Drywall
   m_EditorClassIdentifier: Assembly-CSharp::AcousticMaterial
-  materialName: Kartongips
+  materialName: Drywall
+  assignedMaterial: {fileID: 2100000, guid: d943a424bf9b3d843a78e7ef1c30bd17, type: 2}
   absorptionBands:
   - 0.01
   - 0.01

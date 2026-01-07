@@ -71,7 +71,7 @@ public class RoomAcousticsManager : MonoBehaviour
     {
         var speakers = systemFactory.CreatedSpeakers;
 
-        if (speakers.Count == 0 || listener.Equals(null) || room.Equals(null))
+        if (speakers.Count == 0 || !listener || !room)
         {
             Debug.LogWarning($"Simulation aborted: missing speakers ({speakers.Count} speakers found), listener ({listener == null}) or room ({room == null}).");
             return;
@@ -94,7 +94,7 @@ public class RoomAcousticsManager : MonoBehaviour
             outputSignal = convolver.Convolve(referenceSignal, h);
 
         // 5. Wizualizacja
-        if (!visualizer.Equals(null))
+        if (visualizer)
         {
             visualizer.VisualizeImpulseResponse(h);
             visualizer.VisualizeSoundField(allPaths);
